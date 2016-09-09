@@ -7,11 +7,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/tab_news_name"
+        android:text="@string/tab_equity_name"
         android:textSize="@dimen/tab_text_size"
-        android:textColor="@drawable/selector_news_tab"
+        android:textColor="@drawable/selector_equity_tab"
         android:textAlignment="center"
-        android:drawableTop="@drawable/selector_news_tab"
+        android:drawableTop="@drawable/selector_equity_tab"
         />
 
 </LinearLayout>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="@color/colorTabBlue"
+        >
+
+        <ImageView
+            android:id="@+id/fragment_mine_setting_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/mine_icon_setting"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/fragment_mine_margin"
+            />
+        <ImageView
+            android:id="@+id/fragment_mine_avatar_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/common_avatar"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/fragment_mine_margin"
+            />
+        <TextView
+            android:id="@+id/fragment_mine_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_mine_name"
+            android:textSize="@dimen/fragment_mine_text_size"
+            android:textColor="@color/colorWhite"
+            android:layout_toRightOf="@id/fragment_mine_avatar_img"
+            android:layout_alignBottom="@id/fragment_mine_avatar_img"
+            android:layout_marginBottom="@dimen/fragment_mine_margin"
+            />
+        <ImageView
+            android:id="@+id/fragment_mine_arrow_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/mine_icon_arrow"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="@dimen/fragment_mine_margin"
+            android:layout_marginBottom="@dimen/fragment_mine_arrow_margin"
+             />
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5">
+
+    </LinearLayout>
+
+
+</LinearLayout>

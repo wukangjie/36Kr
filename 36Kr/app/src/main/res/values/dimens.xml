@@ -2,4 +2,11 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <!--主界面-->
+    <dimen name="tab_text_size">10sp</dimen>
+    <!--新闻界面-->
+    <!--我的界面-->
+    <dimen name="fragment_mine_margin">16dp</dimen>
+    <dimen name="fragment_mine_text_size">20sp</dimen>
+    <dimen name="fragment_mine_arrow_margin">35dp</dimen>
 </resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">36Kr</string>
+    <string name="app_name">36氪</string>
     <!--新闻界面-->
     <string name="tab_news_name">新闻</string>
     <!--股权界面-->
@@ -10,5 +10,6 @@
     <string name="tab_message_name">消息</string>
     <!--我的界面-->
     <string name="tab_mine_name">我的</string>
+    <string name="fragment_mine_name">未登录</string>
 
 </resources>

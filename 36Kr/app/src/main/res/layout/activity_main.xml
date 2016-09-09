@@ -19,6 +19,7 @@
         android:id="@+id/main_tl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabSelectedTextColor = "@android:color/holo_green_dark"
+       app:tabSelectedTextColor="@color/colorTabBlue"
+        app:tabIndicatorHeight="0dp"
         />
 </LinearLayout>
