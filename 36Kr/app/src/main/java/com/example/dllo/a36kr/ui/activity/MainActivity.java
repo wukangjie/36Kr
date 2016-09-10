@@ -1,10 +1,23 @@
 package com.example.dllo.a36kr.ui.activity;
 
 
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.example.dllo.a36kr.R;
 import com.example.dllo.a36kr.ui.fragment.DiscoverFragment;
@@ -16,27 +29,28 @@ import com.example.dllo.a36kr.ui.fragment.NewsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AbsBaseActivity {
+public class MainActivity extends FragmentActivity {
     private TabLayout mainTl;
     private ViewPager mainVp;
     private List<Fragment> fragments;
 
 
     @Override
-    protected int setLayout() {
-        return R.layout.activity_main;
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        initViews();
+        initDatas();
     }
 
-    @Override
-    protected void initViews() {
-        mainTl = byView(R.id.main_tl);
-        mainVp = byView(R.id.main_vp);
-
+    private void initViews() {
+        mainTl = (TabLayout) findViewById(R.id.main_tl);
+        mainVp = (ViewPager) findViewById(R.id.main_vp);
         fragments = new ArrayList<>();
 
+
     }
 
-    @Override
     protected void initDatas() {
         fragments.add(new NewsFragment());
         fragments.add(new EquityFragment());
@@ -64,6 +78,6 @@ public class MainActivity extends AbsBaseActivity {
         mainTl.getTabAt(4).setCustomView(R.layout.tab_mine);
 
 
-
     }
+
 }

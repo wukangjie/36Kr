@@ -4,6 +4,9 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <!--主界面-->
     <dimen name="tab_text_size">10sp</dimen>
+    <dimen name="zero_margin">0dp</dimen>
+    <!--抽屉界面-->
+    <dimen name="activity_drawer_left_margin">220dp</dimen>
     <!--新闻界面-->
     <!--我的界面-->
     <dimen name="fragment_mine_margin">16dp</dimen>
