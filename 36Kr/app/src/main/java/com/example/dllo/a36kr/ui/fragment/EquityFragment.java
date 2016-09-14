@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.example.dllo.a36kr.R;
+import com.example.dllo.a36kr.ui.adapter.EquityAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
 public class EquityFragment extends AbsFragment {
     private TabLayout fragmentEquityTl;
     private List<Fragment> fragments;
+    private String[] titles;
     private ViewPager fragmentEquityVp;
     @Override
     protected int setLayout() {
@@ -27,30 +29,30 @@ public class EquityFragment extends AbsFragment {
         fragmentEquityTl = byView(R.id.fragment_equity_tl);
         fragmentEquityVp = byView(R.id.fragment_equity_vp);
         fragments = new ArrayList<>();
+        fragments.add(EquityUseFragment.newInstance("www.baidu.com"));
+        fragments.add(EquityUseFragment.newInstance("www.a.com"));
+        fragments.add(EquityUseFragment.newInstance("www.b.com"));
+        fragments.add(EquityUseFragment.newInstance("www.c.com"));
+
+        titles = new String[fragments.size()];
+        titles[0] = "全部";
+        titles[1] = "募资中";
+        titles[2] = "募资成功";
+        titles[3] = "融资成功";
+        EquityAdapter equityAdapter = new EquityAdapter(getChildFragmentManager());
+        equityAdapter.setFragments(fragments);
+        equityAdapter.setTitles(titles);
+
+        fragmentEquityVp.setAdapter(equityAdapter);
+        fragmentEquityTl.setupWithViewPager(fragmentEquityVp);
+//        fragmentEquityTl.setTabMode(TabLayout.MODE_SCROLLABLE);
+
 
     }
 
     @Override
     protected void initDatas() {
-        fragments.add(new EquityAllFragment());
-        fragments.add(new EquityAllFragment());
-        fragments.add(new EquityAllFragment());
-        fragments.add(new EquityAllFragment());
-        fragmentEquityVp.setAdapter(new FragmentPagerAdapter(getFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                return fragments.get(position);
-            }
 
-            @Override
-            public int getCount() {
-                return fragments.size();
-            }
-        });
-        fragmentEquityTl.setupWithViewPager(fragmentEquityVp);
-        fragmentEquityTl.getTabAt(0).setText("全部");
-        fragmentEquityTl.getTabAt(1).setText("融资中");
-        fragmentEquityTl.getTabAt(2).setText("融资完成");
-        fragmentEquityTl.getTabAt(3).setText("融资成功");
+
     }
 }

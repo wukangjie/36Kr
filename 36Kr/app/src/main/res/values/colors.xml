@@ -7,4 +7,6 @@
     <color name="colorBlack">#000</color>
     <color name="colorTabBlue">#6583F1</color>
     <color name="colorWhite">#FFF</color>
+    <color name="colorRed">#E25659</color>
+    <color name="colorOrange">#F2B757</color>
 </resources>
