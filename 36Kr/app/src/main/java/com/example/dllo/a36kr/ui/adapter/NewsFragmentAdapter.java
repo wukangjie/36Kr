@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ViewFlipper;
 
 import com.example.dllo.a36kr.R;
 import com.example.dllo.a36kr.model.bean.NewFragmentBean;
@@ -21,12 +22,7 @@ import java.util.List;
 public class NewsFragmentAdapter extends BaseAdapter {
     private Context context;
     private List<NewFragmentBean.DataBean.DataBean1> datas;
-    private List<NewFragmentBean.DataBean> dataBeen;
 
-    public void setDataBeen(List<NewFragmentBean.DataBean> dataBeen) {
-        this.dataBeen = dataBeen;
-        notifyDataSetChanged();
-    }
 
     public void setDatas(List<NewFragmentBean.DataBean.DataBean1> datas) {
         this.datas =datas;

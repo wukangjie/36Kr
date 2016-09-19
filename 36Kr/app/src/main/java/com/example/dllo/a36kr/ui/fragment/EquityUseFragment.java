@@ -15,9 +15,9 @@ import com.example.dllo.a36kr.R;
  */
 public class EquityUseFragment extends Fragment {
     private TextView contentTv;
-    public static EquityUseFragment newInstance(String str){
+    public static EquityUseFragment newInstance(){
         Bundle args = new Bundle();
-        args.putString("url",str);
+//        args.putString("url",str);
         EquityUseFragment equityUseFragment = new EquityUseFragment();
         equityUseFragment.setArguments(args);
         return equityUseFragment;

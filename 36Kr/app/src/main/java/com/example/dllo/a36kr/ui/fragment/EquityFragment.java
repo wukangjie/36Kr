@@ -1,24 +1,40 @@
 package com.example.dllo.a36kr.ui.fragment;
 
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.widget.ListView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.dllo.a36kr.R;
-import com.example.dllo.a36kr.ui.adapter.EquityAdapter;
+import com.example.dllo.a36kr.model.bean.EquityFragmentBean;
+import com.example.dllo.a36kr.model.bean.NewFragmentBean;
+import com.example.dllo.a36kr.ui.adapter.EquityFragmentAdapter;
+import com.example.dllo.a36kr.ui.fragment.guquantouzi.AllFragment;
+import com.example.dllo.a36kr.ui.fragment.guquantouzi.FinishFragment;
+import com.example.dllo.a36kr.ui.fragment.guquantouzi.InFragment;
+import com.example.dllo.a36kr.ui.fragment.guquantouzi.OkFragment;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by dllo on 16/9/9.
+ * 股权投资
  */
 public class EquityFragment extends AbsFragment {
-    private TabLayout fragmentEquityTl;
+    private TabLayout fragmentEquityTablayout;
+    private ViewPager fragmentEquityViewpager;
     private List<Fragment> fragments;
-    private String[] titles;
-    private ViewPager fragmentEquityVp;
+    private List<String> titles;
+
     @Override
     protected int setLayout() {
         return R.layout.fragment_equity;
@@ -26,33 +42,42 @@ public class EquityFragment extends AbsFragment {
 
     @Override
     protected void initViews() {
-        fragmentEquityTl = byView(R.id.fragment_equity_tl);
-        fragmentEquityVp = byView(R.id.fragment_equity_vp);
-        fragments = new ArrayList<>();
-        fragments.add(EquityUseFragment.newInstance("www.baidu.com"));
-        fragments.add(EquityUseFragment.newInstance("www.a.com"));
-        fragments.add(EquityUseFragment.newInstance("www.b.com"));
-        fragments.add(EquityUseFragment.newInstance("www.c.com"));
-
-        titles = new String[fragments.size()];
-        titles[0] = "全部";
-        titles[1] = "募资中";
-        titles[2] = "募资成功";
-        titles[3] = "融资成功";
-        EquityAdapter equityAdapter = new EquityAdapter(getChildFragmentManager());
-        equityAdapter.setFragments(fragments);
-        equityAdapter.setTitles(titles);
-
-        fragmentEquityVp.setAdapter(equityAdapter);
-        fragmentEquityTl.setupWithViewPager(fragmentEquityVp);
-//        fragmentEquityTl.setTabMode(TabLayout.MODE_SCROLLABLE);
-
-
+        fragmentEquityTablayout = byView(R.id.fragment_equity_tl);
+        fragmentEquityViewpager = byView(R.id.fragment_equity_vp);
     }
 
     @Override
     protected void initDatas() {
+        fragments = new ArrayList<>();
+        fragments.add(AllFragment.newInstance());
+        fragments.add(InFragment.newInstance());
+        fragments.add(FinishFragment.newInstance());
+        fragments.add(OkFragment.newInstance());
 
+        titles = new ArrayList<>();
+        titles.add("全部");
+        titles.add("募资中");
+        titles.add("募资完成");
+        titles.add("融资成功");
+
+        fragmentEquityViewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+                return fragments.get(position);
+            }
+
+            @Override
+            public int getCount() {
+                return fragments.size();
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                return titles.get(position);
+            }
+        });
+
+        fragmentEquityTablayout.setupWithViewPager(fragmentEquityViewpager);
 
     }
 }

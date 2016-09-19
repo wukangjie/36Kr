@@ -32,9 +32,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="25dp"
                 android:maxLines="2"
-                android:minLines="1"
+                android:minLines="2"
                 android:ellipsize="marquee"
                 />
 
@@ -50,7 +51,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="36氪的朋友们"
-                android:layout_margin="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="5dp"
                 />
             <TextView
                 android:id="@+id/news_item_time_tv"

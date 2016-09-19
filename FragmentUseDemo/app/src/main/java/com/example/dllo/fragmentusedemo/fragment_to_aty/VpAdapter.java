@@ -1,4 +1,4 @@
-package com.example.dllo.a36kr.ui.adapter;
+package com.example.dllo.fragmentusedemo.fragment_to_aty;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,41 +7,38 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.List;
 
 /**
- * Created by dllo on 16/9/8.
+ * Created by dllo on 16/9/19.
  */
-public class EquityAdapter extends FragmentPagerAdapter {
-
+public class VpAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments;
-    private String[] titles;
-
-    public EquityAdapter(FragmentManager fm) {
-        super(fm);
-    }
+    private List<String> title;
 
     public void setFragments(List<Fragment> fragments) {
         this.fragments = fragments;
         notifyDataSetChanged();
     }
 
-    public void setTitles(String[] titles) {
-        this.titles = titles;
+    public void setTitle(List<String> title) {
+        this.title = title;
         notifyDataSetChanged();
+    }
+
+    public VpAdapter(FragmentManager fm) {
+        super(fm);
     }
 
     @Override
     public Fragment getItem(int position) {
-        return fragments !=null && fragments.size() > 0?fragments.get(position):null;
+        return fragments == null ? null : fragments.get(position);
     }
 
     @Override
     public int getCount() {
-
-
-        return fragments !=null && fragments.size() > 0 ? fragments.size():0;
+        return fragments == null ? 0 : fragments.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return titles[position];
+        return title.get(position);
     }
 }

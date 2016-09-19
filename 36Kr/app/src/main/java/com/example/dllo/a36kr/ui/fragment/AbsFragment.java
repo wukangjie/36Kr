@@ -17,13 +17,7 @@ import com.example.dllo.a36kr.utils.T;
  * Fragment的基类
  */
 public abstract class AbsFragment extends Fragment {
-    private Context context;
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
 
     @Nullable
     @Override
@@ -53,12 +47,12 @@ public abstract class AbsFragment extends Fragment {
     }
     //简化跳转
     protected void goTo(Class<? extends AbsBaseActivity> to){
-        context.startActivity(new Intent(context,to));
+        getContext().startActivity(new Intent(getContext(),to));
     }
     protected void goTo(Class<? extends AbsBaseActivity> to, Bundle extras){
-        Intent intent = new Intent(context,to);
+        Intent intent = new Intent(getContext(),to);
         intent.putExtras(extras);
-        context.startActivity(intent);
+        getContext().startActivity(intent);
     }
 
 }

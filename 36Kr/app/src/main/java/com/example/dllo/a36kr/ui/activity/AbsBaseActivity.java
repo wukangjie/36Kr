@@ -54,6 +54,7 @@ public abstract class AbsBaseActivity extends AppCompatActivity {
     }
     /**
      * 带数据的跳转
+     * @param
      */
     protected void goTo(Context from,Class<? extends AbsBaseActivity> to,Bundle extras){
         Intent intent = new Intent(from,to);

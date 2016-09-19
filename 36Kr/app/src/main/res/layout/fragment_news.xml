@@ -48,32 +48,44 @@
             android:background="@color/colorGray" />
 
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="start"
             android:layout_weight="15"
             android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <ViewFlipper
+                    android:id="@+id/fragment_news_flipper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-            <ListView
-                android:id="@+id/fragment_news_listview"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:choiceMode="singleChoice"
-                android:divider="@android:color/transparent"
-                android:dividerHeight="@dimen/zero_margin" />
-        </LinearLayout>
+                <com.example.dllo.a36kr.view.ExpandListView
+                    android:id="@+id/fragment_news_listview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:choiceMode="singleChoice"
+                    android:divider="@android:color/transparent"
+                    android:dividerHeight="@dimen/zero_margin" />
+            </LinearLayout>
+
+
+        </ScrollView>
 
     </LinearLayout>
     <LinearLayout
-        android:id="@+id/fragment_news_drawer_ll"
+        android:id="@+id/fragment_news_drawer_linearlayout"
         android:layout_width="@dimen/activity_drawer_left_margin"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/colorWhite"
         >
         <ListView
-            android:id="@+id/main_left_lv"
+            android:id="@+id/main_left_listview"
             android:layout_width="@dimen/activity_drawer_left_margin"
             android:layout_height="match_parent"
 

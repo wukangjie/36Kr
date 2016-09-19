@@ -29,7 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:tabIndicatorHeight="@dimen/zero_margin"
-            app:tabSelectedTextColor="@color/colorTabBlue" />
+            app:tabSelectedTextColor="@color/colorTabBlue"
+            app:tabTextAppearance="@style/TextSize"/>
     </LinearLayout>
     <LinearLayout
         android:id="@+id/main_drawer_ll"
@@ -37,12 +38,17 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@color/colorWhite"
+        android:orientation="vertical"
         >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/activity_vertical_margin"
+            android:src="@mipmap/news_toolbar_icon_back" />
         <ListView
             android:id="@+id/main_left_lv"
-            android:layout_width="@dimen/activity_drawer_left_margin"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:choiceMode="singleChoice"
             android:divider="@android:color/transparent"
             android:dividerHeight="@dimen/zero_margin"

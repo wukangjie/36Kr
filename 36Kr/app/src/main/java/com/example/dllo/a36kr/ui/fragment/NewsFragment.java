@@ -3,11 +3,13 @@ package com.example.dllo.a36kr.ui.fragment;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -16,8 +18,10 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.dllo.a36kr.R;
 import com.example.dllo.a36kr.model.bean.NewFragmentBean;
+import com.example.dllo.a36kr.ui.activity.MainActivity;
 import com.example.dllo.a36kr.ui.activity.NewsFragmentActivity;
 import com.example.dllo.a36kr.ui.adapter.NewsFragmentAdapter;
+import com.example.dllo.a36kr.view.ExpandListView;
 import com.google.gson.Gson;
 
 import java.lang.ref.ReferenceQueue;
@@ -28,24 +32,28 @@ import java.util.List;
  */
 public class NewsFragment extends AbsFragment {
     private String url = "https://rong.36kr.com/api/mobi/news?pageSize=20&columnId=all&pagingAction=up";
+    private String shufflingUrl = "https://rong.36kr.com/api/mobi/roundpics/v4";
     private ImageView naviImg;
-    private DrawerLayout fragmentDl;
-    private LinearLayout fragmentLl;
-    private ListView listView;
+    private DrawerLayout fragmentDrawerLayout;
+    private LinearLayout fragmentLinearlayout;
+    private ExpandListView listView;
     private RequestQueue queue;
     private NewsFragmentAdapter adapter;
+    private ViewFlipper viewFlipper;
 
     @Override
     protected int setLayout() {
         return R.layout.fragment_news;
+
     }
 
     @Override
     protected void initViews() {
         naviImg = byView(R.id.fragment_news_navi_img);
-        fragmentDl = byView(R.id.fragment_news_drawer_layout);
-        fragmentLl = byView(R.id.fragment_news_drawer_ll);
+        fragmentDrawerLayout = byView(R.id.fragment_news_drawer_layout);
+        fragmentLinearlayout = byView(R.id.fragment_news_drawer_linearlayout);
         listView = byView(R.id.fragment_news_listview);
+        viewFlipper = byView(R.id.fragment_news_flipper);
         adapter = new NewsFragmentAdapter(getContext());
         listView.setAdapter(adapter);
 
@@ -92,7 +100,7 @@ public class NewsFragment extends AbsFragment {
         naviImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragmentDl.openDrawer(fragmentLl);
+               fragmentDrawerLayout.openDrawer(fragmentLinearlayout);
             }
         });
     }

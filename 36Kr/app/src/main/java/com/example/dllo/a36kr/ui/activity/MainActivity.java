@@ -1,6 +1,9 @@
 package com.example.dllo.a36kr.ui.activity;
 
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,10 +32,12 @@ import com.example.dllo.a36kr.ui.fragment.NewsFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity  {
     private TabLayout mainTl;
     private ViewPager mainVp;
     private List<Fragment> fragments;
+    private LinearLayout lineatLayout;
+
 
 
     @Override
@@ -47,6 +52,7 @@ public class MainActivity extends FragmentActivity {
         mainTl = (TabLayout) findViewById(R.id.main_tl);
         mainVp = (ViewPager) findViewById(R.id.main_vp);
         fragments = new ArrayList<>();
+        lineatLayout = (LinearLayout) findViewById(R.id.main_drawer_ll);
 
 
     }
@@ -69,15 +75,19 @@ public class MainActivity extends FragmentActivity {
                 return fragments.size();
             }
         });
+        mainTl.setTabTextColors(Color.BLACK,Color.argb(255,72,118,255));
 
         mainTl.setupWithViewPager(mainVp);
-        mainTl.getTabAt(0).setCustomView(R.layout.tab_news);
-        mainTl.getTabAt(1).setCustomView(R.layout.tab_equity);
-        mainTl.getTabAt(2).setCustomView(R.layout.tab_discover);
-        mainTl.getTabAt(3).setCustomView(R.layout.tab_message);
-        mainTl.getTabAt(4).setCustomView(R.layout.tab_mine);
+//            mainTl.getTabAt(0).setText("我们").setIcon(R.drawable.selector_news_tab);
+            mainTl.getTabAt(0).setText("新闻").setIcon(R.drawable.selector_news_tab);
+            mainTl.getTabAt(1).setText("股权投资").setIcon(R.drawable.selector_equity_tab);
+            mainTl.getTabAt(2).setText("发现").setIcon(R.drawable.selector_discover_tab);
+            mainTl.getTabAt(3).setText("消息").setIcon(R.drawable.selector_message_tab);
+            mainTl.getTabAt(4).setText("我的").setIcon(R.drawable.selector_mine_tab);
+
 
 
     }
+
 
 }

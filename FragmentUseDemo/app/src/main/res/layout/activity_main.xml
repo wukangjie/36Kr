@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <!--主页面内容:站位布局-->
+    <FrameLayout
+        android:id="@+id/main_replace_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <!--抽屉内部内容-->
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_gravity="left"
+        android:background="#f03"
+        >
+        <Button
+            android:id="@+id/drawer_btn1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="默认页"
+            />
+        <Button
+            android:id="@+id/drawer_btn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="B轮后"
+            />
+        <Button
+            android:id="@+id/drawer_btn3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="早期项目"
+            />
+    </LinearLayout>
+
+</android.support.v4.widget.DrawerLayout>
