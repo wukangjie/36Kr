@@ -49,5 +49,10 @@ public class HomeFragment extends Fragment {
     public void changeTextViewText(String text){
         homeTv.setText(text);
 
+
+    }
+
+    public TextView getHomeTv() {
+        return homeTv;
     }
 }

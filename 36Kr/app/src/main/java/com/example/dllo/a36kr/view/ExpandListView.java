@@ -20,9 +20,6 @@ public class ExpandListView extends ListView {
         super(context, attrs, defStyleAttr);
     }
 
-    public ExpandListView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
-    }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {

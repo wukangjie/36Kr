@@ -19,12 +19,11 @@ import com.example.dllo.fragmentusedemo.R;
  * 新闻Fragment
  */
 public class NewsFragment extends Fragment {
-    private MyReceiver myReceiver;
+//    private MyReceiver myReceiver;
 
     public static NewsFragment newInstance() {
 
         Bundle args = new Bundle();
-
         NewsFragment fragment = new NewsFragment();
         fragment.setArguments(args);
         return fragment;
@@ -56,45 +55,47 @@ public class NewsFragment extends Fragment {
 //        //4.在onDestroy里取消注册
     }
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-//        getContext().unregisterReceiver(myReceiver);
-    }
+//    @Override
+//    public void onDestroy() {
+//        super.onDestroy();
+////        getContext().unregisterReceiver(myReceiver);
+//    }
 
     /**
      * 对外提供参数布局的方法
      */
     public void changeFragment(Fragment fragment){
-        getChildFragmentManager().beginTransaction().replace(R.id.news_replace_view,fragment).commit();
+        getChildFragmentManager().beginTransaction()
+                .replace(R.id.news_replace_view,fragment)
+                .commit();
     }
 
 
 
     //定义广播接收者
     //接收到广播替换界面
-    public class MyReceiver extends BroadcastReceiver{
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent != null){
-                int a = intent.getIntExtra("index",0);
-                switch (a){
-                    case 0:
-                        getChildFragmentManager().beginTransaction()
-                                .replace(R.id.news_replace_view,NewsAllFragment.newInstance("默认页"));
-                        break;
-                    case 1:
-                        getChildFragmentManager().beginTransaction()
-                                .replace(R.id.news_replace_view,NewsAllFragment.newInstance("B轮后"));
-                        break;
-                    case 2:
-                        getChildFragmentManager().beginTransaction()
-                                .replace(R.id.news_replace_view,NewsAllFragment.newInstance("早期项目"));
-                        break;
-                }
-            }
-
-        }
-    }
+//    public class MyReceiver extends BroadcastReceiver{
+//
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            if (intent != null){
+//                int a = intent.getIntExtra("index",0);
+//                switch (a){
+//                    case 0:
+//                        getChildFragmentManager().beginTransaction()
+//                                .replace(R.id.news_replace_view,NewsAllFragment.newInstance("默认页"));
+//                        break;
+//                    case 1:
+//                        getChildFragmentManager().beginTransaction()
+//                                .replace(R.id.news_replace_view,NewsAllFragment.newInstance("B轮后"));
+//                        break;
+//                    case 2:
+//                        getChildFragmentManager().beginTransaction()
+//                                .replace(R.id.news_replace_view,NewsAllFragment.newInstance("早期项目"));
+//                        break;
+//                }
+//            }
+//
+//        }
+//    }
 }

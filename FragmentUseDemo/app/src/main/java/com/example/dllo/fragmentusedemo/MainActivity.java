@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.drawer_btn1:
-                Toast.makeText(this, "btn1:" + btn1, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "btn1:" + btn1, Toast.LENGTH_SHORT).show();
 //                //发广播
 //                Intent intent = new Intent();
 //                intent.setAction("change");
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.drawer_btn3:
-                Toast.makeText(this, "btn3:" + btn3, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "btn3:" + btn3, Toast.LENGTH_SHORT).show();
 //                //发广播
 //                Intent intent2 = new Intent();
 //                intent2.setAction("change");

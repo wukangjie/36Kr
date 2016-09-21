@@ -19,7 +19,7 @@ import java.util.List;
  * Fragment向Activity传值
  */
 
-public class FragmentToActivity extends AppCompatActivity {
+public class FragmentToActivity extends AppCompatActivity implements IToContralAty {
     private TextView showTv;
     private ViewPager viewPager;
     private TabLayout tabLayout;
@@ -76,5 +76,42 @@ public class FragmentToActivity extends AppCompatActivity {
             }
         });
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    /**
+     * 当前Activity实现接口
+     * 多态:Activity,Context,IControlActivity
+     * onAttach方法把其转换为Context,传入Fragment
+     * 在Fragment里,把context转成接口使用
+     *
+     * 接口回调方法
+     * @param color
+     * @param str
+     * @param position
+     */
+
+    @Override
+    public void onToControlAty(int color, String str, int position) {
+        if (color != 0){
+            showTv.setTextColor(color);
+        }
+        if (str != null){
+            showTv.setText(str);
+        }
+        //后2个Button
+        //接到命令
+        //Set发出命令,Activity接到回调,再去改变HomeFragment
+        if (position == 999){
+            //控制homeFragment
+            //方法一:
+            homeFragment.changeTextViewText(str);
+            //跳转
+            viewPager.setCurrentItem(0);
+            //方法二: 缺点:增加耦合性
+            //一个类不要和别的类有过多的牵扯关联
+//            HomeFragment homeFragment = (HomeFragment) vpAdapter.getItem(0);
+//            TextView textView = homeFragment.getHomeTv();
+//            textView.setText(str);
+        }
     }
 }

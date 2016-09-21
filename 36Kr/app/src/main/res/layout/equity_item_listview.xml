@@ -4,20 +4,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <View
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="@color/colorGray" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="100dp">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/equity_item_title_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_margin="5dp"
             android:src="@mipmap/ic_launcher" />
 
         <TextView
@@ -27,6 +27,7 @@
             android:layout_alignTop="@id/equity_item_title_img"
             android:layout_toRightOf="@id/equity_item_title_img"
             android:text="奇迹厦门演唱会"
+
             android:textColor="@color/colorBlack"
             android:textSize="20sp" />
 
@@ -36,6 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/equity_item_title_img"
             android:layout_toRightOf="@id/equity_item_title_img"
+            android:maxLines="1"
+            android:minLines="1"
+            android:ellipsize="end"
             android:text="群星演唱会" />
 
         <RelativeLayout
@@ -59,8 +63,9 @@
 
     <ImageView
         android:id="@+id/equity_item_content_img"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         android:src="@mipmap/ic_launcher" />
 
     <RelativeLayout

@@ -1,19 +1,21 @@
 package com.example.dllo.a36kr.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 
 import com.example.dllo.a36kr.R;
 import com.example.dllo.a36kr.model.bean.NewFragmentBean;
 import com.example.dllo.a36kr.utils.ScreenSizeUtils;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -64,8 +66,14 @@ public class NewsFragmentAdapter extends BaseAdapter {
             holder.newsItemContentTv.setText(bean.getTitle());
             holder.newsItemAuthorTv.setText(bean.getUser().getName());
             holder.newsItemTypeTv.setText(bean.getColumnName());
-
-            holder.newsItemTimeTv.setText( bean.getPublishTime()+"");
+            if (bean.getColumnName() == "早期项目"){
+                holder.newsItemTypeTv.setTextColor(Color.GREEN);
+            }else {
+                holder.newsItemTypeTv.setTextColor(Color.BLUE);
+            }
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+            String publishTime =format.format(new Date(bean.getPublishTime()));
+            holder.newsItemTimeTv.setText( publishTime);
             Picasso.with(context).load(bean.getFeatureImg()).into(holder.newsItemImg);
 
         }

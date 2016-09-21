@@ -19,6 +19,11 @@ import com.example.dllo.a36kr.utils.T;
 public abstract class AbsFragment extends Fragment {
 
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

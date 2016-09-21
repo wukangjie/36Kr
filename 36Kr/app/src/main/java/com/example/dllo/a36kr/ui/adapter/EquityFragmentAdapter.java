@@ -20,6 +20,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Created by dllo on 16/9/8.
  */
@@ -58,9 +60,11 @@ public class EquityFragmentAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         EquityFragmentHolder holder = null;
+        int width = ScreenSizeUtils.getSreenSize(context, ScreenSizeUtils.ScreenState.WIDTH);
+        int height = ScreenSizeUtils.getSreenSize(context, ScreenSizeUtils.ScreenState.HEIGHT);
+
         if (convertView == null){
             convertView = LayoutInflater.from(context).inflate(R.layout.equity_item_listview,parent,false);
-            ScreenSizeUtils.getSreenSize(context, ScreenSizeUtils.ScreenState.HEIGHT);
             holder = new EquityFragmentHolder(convertView);
             convertView.setTag(holder);
         }else {
@@ -71,11 +75,11 @@ public class EquityFragmentAdapter extends BaseAdapter {
             holder.titleName.setText(bean.getCompany_name());
             holder.titleAuthor.setText(bean.getCompany_brief());
             holder.ledName.setText(bean.getLead_name());
-            holder.founderName.setText(EquityFragmentBean.DataBean.DataBean1.CfAdvantageBean.class.getCanonicalName());
-            holder.hatchName.setText(EquityFragmentBean.DataBean.DataBean1.CfAdvantageBean.class.getName());
+            holder.founderName.setText(bean.getCf_advantage().get(0).getAdcontent());
+            holder.hatchName.setText(bean.getCf_advantage().get(1).getAdcontent());
 
 
-            Picasso.with(context).load(bean.getCompany_logo()).into(holder.titleImg);
+            Picasso.with(context).load(bean.getCompany_logo()).resize(width/6,height/10).into(holder.titleImg);
             Picasso.with(context).load(bean.getFile_list_img()).into(holder.contentImg);
         }
         return convertView;
@@ -85,7 +89,7 @@ public class EquityFragmentAdapter extends BaseAdapter {
 
 
     private class EquityFragmentHolder{
-        ImageView titleImg;
+        CircleImageView titleImg;
         TextView titleName;
         TextView titleAuthor;
         ImageView contentImg;
@@ -96,7 +100,7 @@ public class EquityFragmentAdapter extends BaseAdapter {
         TextView progressTv;
         Button subscribeBtn;
         public EquityFragmentHolder(View view){
-            titleImg = (ImageView) view.findViewById(R.id.equity_item_title_img);
+            titleImg = (CircleImageView) view.findViewById(R.id.equity_item_title_img);
             titleName = (TextView) view.findViewById(R.id.equity_item_title_name);
             titleAuthor = (TextView) view.findViewById(R.id.equity_item_title_author);
             contentImg = (ImageView) view.findViewById(R.id.equity_item_content_img);
