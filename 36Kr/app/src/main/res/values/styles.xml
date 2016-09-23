@@ -12,5 +12,13 @@
         <item name="android:textSize">10sp</item>
         <item name="android:textAllCaps">true</item>
     </style>
+    <declare-styleable name="LoopView">
+        <attr name="rate" format="integer"></attr>
+        <attr name="bottom_style" format="integer|reference"></attr>
+    </declare-styleable>
+
+    <integer name="loop_have_descript">1</integer>
+    <integer name="loop_no_descript_right">2</integer>
+    <integer name="loop_no_descript_center">3</integer>
 
 </resources>

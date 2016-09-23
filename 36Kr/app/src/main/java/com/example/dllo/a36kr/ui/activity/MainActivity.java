@@ -37,7 +37,7 @@ import com.example.dllo.a36kr.utils.AllContantValues;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity implements ItoContralActivity,View.OnClickListener  {
+public class MainActivity extends FragmentActivity implements ItoContralActivity, View.OnClickListener {
     private DrawerLayout mainDrawerLayout;
     private TabLayout mainTl;
     private ViewPager mainVp;
@@ -88,6 +88,9 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
         fragments.add(new DiscoverFragment());
         fragments.add(new MessageFragment());
         fragments.add(new MineFragment());
+        /**
+         * viewPage绑定Fragment
+         */
         mainVp.setAdapter(new FragmentPagerAdapter
                 (getSupportFragmentManager()) {
             @Override
@@ -101,7 +104,9 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
             }
         });
         mainTl.setTabTextColors(Color.BLACK, Color.argb(255, 72, 118, 255));
-
+        /**
+         * TabLayout绑定ViewPager
+         */
         mainTl.setupWithViewPager(mainVp);
         mainTl.getTabAt(0).setText("新闻").setIcon(R.drawable.selector_news_tab);
         mainTl.getTabAt(1).setText("股权投资").setIcon(R.drawable.selector_equity_tab);
@@ -116,16 +121,19 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
         depthLl.setOnClickListener(this);
         researchLl.setOnClickListener(this);
         backImg.setOnClickListener(this);
-
+        /**
+         * 设置抽屉锁,使其只在newsFragment显示
+         */
         mainTl.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 Log.d("zzz", "mainTl.getSelectedTabPosition():" + mainTl.getSelectedTabPosition());
-                if (tab.getPosition() == 0){
+                if (tab.getPosition() == 0) {
                     mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                }else {
+                } else {
                     mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 }
+                mainVp.setCurrentItem(mainTl.getSelectedTabPosition());
             }
 
             @Override
@@ -142,54 +150,61 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
 
     }
 
-
+    /**
+     * 抽屉的点击事件
+     * @param v
+     */
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.main_drawer_all_ll:
-                newsFragment.changeFragment(NewsUseFragment.newInstance(AllContantValues.ALLNEWSURL,"新闻"));
-                mainDrawerLayout.closeDrawer(lineatLayout);
+                newsFragment.changeFragment(NewsUseFragment.newInstance(AllContantValues.ALLNEWSROTATEURL, true));
+                newsFragment.changeTextFragment("新闻");
                 break;
             case R.id.main_drawer_early_ll:
-                newsFragment.changeFragment(NewsUseFragment.newInstance(AllContantValues.EARLYNEWSURL,"早期项目"));
-                mainDrawerLayout.closeDrawer(lineatLayout);
+                newsFragment.changeFragment(NewsUseFragment.newInstance(AllContantValues.EARLYNEWSURL, false));
+                newsFragment.changeTextFragment("早期项目");
                 break;
             case R.id.main_drawer_blate_ll:
-//                newsFragment.changeFragment(NewsUseFragment.newInstance(AllContantValues.BLATENEWSURL,"B轮后"));
+//                newsFragment.changeFragment(NewsUseFragment.newInstance(AllContantValues.BLATENEWSURL,false));
+                newsFragment.changeTextFragment("B轮后");
                 Toast.makeText(this, "这个网址不太好使", Toast.LENGTH_SHORT).show();
-                mainDrawerLayout.closeDrawer(lineatLayout);
                 break;
             case R.id.main_drawer_big_ll:
-                newsFragment.changeFragment(NewsUseFragment.newInstance(AllContantValues.BIGNEWSURL,"大公司"));
-                mainDrawerLayout.closeDrawer(lineatLayout);
+                newsFragment.changeFragment(NewsUseFragment.newInstance(AllContantValues.BIGNEWSURL, false));
+                newsFragment.changeTextFragment("大公司");
                 break;
             case R.id.main_drawer_capital_ll:
-//                newsFragment.changeFragment(NewsUseFragment.newInstance(AllContantValues.CAPITALNEWSURL,"资本"));
+//                newsFragment.changeFragment(NewsUseFragment.newInstance(AllContantValues.CAPITALNEWSURL,false));
+                newsFragment.changeTextFragment("资本");
                 Toast.makeText(this, "这个网址不太好使", Toast.LENGTH_SHORT).show();
-                mainDrawerLayout.closeDrawer(lineatLayout);
                 break;
             case R.id.main_drawer_depth_ll:
-                newsFragment.changeFragment(NewsUseFragment.newInstance(AllContantValues.DEPTHNEWSURL,"深度"));
-                mainDrawerLayout.closeDrawer(lineatLayout);
+                newsFragment.changeTextFragment("深度");
+                newsFragment.changeFragment(NewsUseFragment.newInstance(AllContantValues.DEPTHNEWSURL, false));
                 break;
             case R.id.main_drawer_research_ll:
-                newsFragment.changeFragment(NewsUseFragment.newInstance(AllContantValues.RESEARCHNEWSURL,"研究"));
-                mainDrawerLayout.closeDrawer(lineatLayout);
+                newsFragment.changeTextFragment("研究");
+                newsFragment.changeFragment(NewsUseFragment.newInstance(AllContantValues.RESEARCHNEWSURL, false));
                 break;
             case R.id.main_drawer_img:
                 mainDrawerLayout.closeDrawer(lineatLayout);
                 break;
         }
+        mainDrawerLayout.closeDrawer(lineatLayout);
 
     }
 
-
+    /**
+     * 接口回调接收NewsFragment传来的值
+     * @param state
+     */
     @Override
     public void toContralActivity(boolean state) {
-      if (state){
-          mainDrawerLayout.openDrawer(lineatLayout);
-      }
+        if (state) {
+            mainDrawerLayout.openDrawer(lineatLayout);
+        }
     }
 
 }

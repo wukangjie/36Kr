@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:background="@color/colorTabBlue">
 
         <ImageView
@@ -17,37 +17,46 @@
             android:layout_alignParentRight="true"
             android:layout_margin="@dimen/fragment_mine_margin"
             android:src="@mipmap/mine_icon_setting" />
-
-        <ImageView
-            android:id="@+id/fragment_mine_avatar_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_margin="@dimen/fragment_mine_margin"
-            android:src="@mipmap/common_avatar" />
-
-        <TextView
-            android:id="@+id/fragment_mine_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@id/fragment_mine_avatar_img"
-            android:layout_marginBottom="@dimen/fragment_mine_margin"
-            android:layout_toRightOf="@id/fragment_mine_avatar_img"
-            android:text="@string/fragment_mine_name"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/fragment_mine_text_size" />
-
-        <ImageView
-            android:id="@+id/fragment_mine_arrow_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/fragment_mine_arrow_margin"
-            android:layout_marginRight="@dimen/fragment_mine_margin"
-            android:src="@mipmap/mine_icon_arrow" />
-
     </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/fragment_mine_login_rll"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/colorTabBlue"
+            >
+            <ImageView
+                android:id="@+id/fragment_mine_avatar_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/fragment_mine_margin"
+                android:src="@mipmap/common_avatar" />
+
+            <TextView
+                android:id="@+id/fragment_mine_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/fragment_mine_avatar_img"
+                android:layout_marginBottom="@dimen/fragment_mine_margin"
+                android:layout_toRightOf="@id/fragment_mine_avatar_img"
+                android:text="@string/fragment_mine_name"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/fragment_mine_text_size" />
+
+            <ImageView
+                android:id="@+id/fragment_mine_arrow_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/fragment_mine_arrow_margin"
+                android:layout_marginRight="@dimen/fragment_mine_margin"
+                android:src="@mipmap/mine_icon_arrow" />
+        </RelativeLayout>
+
+
+
 
     <ScrollView
         android:layout_width="match_parent"

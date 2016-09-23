@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 
@@ -19,11 +21,12 @@ import java.util.List;
  * Created by dllo on 16/9/9.
  * 股权投资
  */
-public class EquityFragment extends AbsFragment {
+public class EquityFragment extends AbsFragment implements View.OnClickListener {
     private TabLayout fragmentEquityTablayout;
     private ViewPager fragmentEquityViewpager;
     private List<Fragment> fragments;
     private List<String> titles;
+    private ImageView mGiftImg;
 
 
     @Override
@@ -35,6 +38,7 @@ public class EquityFragment extends AbsFragment {
     protected void initViews() {
         fragmentEquityTablayout = byView(R.id.fragment_equity_tl);
         fragmentEquityViewpager = byView(R.id.fragment_equity_vp);
+        mGiftImg = byView(R.id.fragment_equity_title_gift);
 
 
     }
@@ -72,6 +76,16 @@ public class EquityFragment extends AbsFragment {
         });
 
         fragmentEquityTablayout.setupWithViewPager(fragmentEquityViewpager);
+        mGiftImg.setOnClickListener(this);
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.fragment_equity_title_gift:
+
+                break;
+        }
     }
 }

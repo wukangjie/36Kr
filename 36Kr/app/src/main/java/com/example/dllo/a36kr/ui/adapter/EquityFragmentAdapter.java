@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.example.dllo.a36kr.R;
@@ -24,6 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by dllo on 16/9/8.
+ * 股权投资适配器
  */
 public class EquityFragmentAdapter extends BaseAdapter {
 
@@ -77,6 +79,9 @@ public class EquityFragmentAdapter extends BaseAdapter {
             holder.ledName.setText(bean.getLead_name());
             holder.founderName.setText(bean.getCf_advantage().get(0).getAdcontent());
             holder.hatchName.setText(bean.getCf_advantage().get(1).getAdcontent());
+            holder.raiseTv.setText(bean.getFundStatus().getDesc());
+            holder.progressTv.setText("已融资"+(int)(bean.getRate() * 100)+"%");
+            holder.seekBar.setProgress((int) (bean.getRate()*100));
 
 
             Picasso.with(context).load(bean.getCompany_logo()).resize(width/6,height/10).into(holder.titleImg);
@@ -99,6 +104,8 @@ public class EquityFragmentAdapter extends BaseAdapter {
         TextView raiseTv;
         TextView progressTv;
         Button subscribeBtn;
+         SeekBar seekBar;
+
         public EquityFragmentHolder(View view){
             titleImg = (CircleImageView) view.findViewById(R.id.equity_item_title_img);
             titleName = (TextView) view.findViewById(R.id.equity_item_title_name);
@@ -110,6 +117,7 @@ public class EquityFragmentAdapter extends BaseAdapter {
             raiseTv = (TextView) view.findViewById(R.id.equity_item_raise_tv);
             progressTv = (TextView) view.findViewById(R.id.equity_item_progress_tv);
             subscribeBtn = (Button) view.findViewById(R.id.equity_item_subscribe_btn);
+             seekBar =  (SeekBar) view.findViewById(R.id.equity_item_seekbar);
         }
     }
 }
