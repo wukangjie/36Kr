@@ -14,6 +14,7 @@ import com.example.dllo.a36kr.utils.AllContantValues;
 
 /**
  * Created by dllo on 16/9/9.
+ * 新闻Fragment
  */
 public class NewsFragment extends AbsFragment {
     private ImageView menuIv;
@@ -28,7 +29,10 @@ public class NewsFragment extends AbsFragment {
 
     }
 
-
+    /**
+     * 单例
+     * @return
+     */
     public static NewsFragment newInstance() {
         Bundle args = new Bundle();
         NewsFragment fragment = new NewsFragment();
@@ -50,30 +54,47 @@ public class NewsFragment extends AbsFragment {
 
     @Override
     protected void initDatas() {
-
-
+        /**
+         * 默认显示新闻的全部界面
+         */
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.news_fragment_replace_view, NewsUseFragment.newInstance(AllContantValues.ALLNEWSURL, true))
                 .commit();
+        /**
+         * 设置菜单的点击事件
+         */
         menuIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itoContralActivity.toContralActivity(true);
+                itoContralActivity.toContralActivity(true);//接口回调传值
             }
         });
 
 
+
     }
 
+    /**
+     * 自定义方法
+     * 在MainActivity调用
+     * 通过改变网址
+     * 替换Fragment
+     * @param fragment
+     */
     public void changeFragment(Fragment fragment) {
         getChildFragmentManager().beginTransaction()
                 .replace(R.id.news_fragment_replace_view, fragment)
                 .commit();
     }
 
+    /**
+     * 点击改变NewsFragment的标题
+     * @param text
+     */
     public void changeTextFragment(String text) {
         titleTv.setText(text);
     }
+
 
 
 }

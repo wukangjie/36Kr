@@ -77,6 +77,7 @@
                 android:background="@color/colorGray" />
 
             <RelativeLayout
+                android:id="@+id/fragment_mine_order_relativelayout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
 
@@ -89,7 +90,7 @@
                     android:src="@mipmap/mine_icon_order1" />
 
                 <TextView
-                    android:id="@+id/fragment_mine_order_tv"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -112,13 +113,14 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="10dp"></RelativeLayout>
+                android:layout_height="10dp"/>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/colorGray" />
 
             <RelativeLayout
+                android:id="@+id/fragment_mine_accout_relativelayout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
                 <ImageView
@@ -153,6 +155,7 @@
                 android:background="@color/colorGray" />
 
             <RelativeLayout
+                android:id="@+id/fragment_mine_authentication_relativelayout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
                 <ImageView
@@ -195,6 +198,7 @@
                 android:background="@color/colorGray" />
 
             <RelativeLayout
+                android:id="@+id/fragment_mine_favorite_relativelayout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
                 <ImageView
@@ -229,6 +233,7 @@
                 android:background="@color/colorGray" />
 
             <RelativeLayout
+                android:id="@+id/fragment_mine_company_relativelayout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
                 <ImageView
@@ -263,6 +268,7 @@
                 android:background="@color/colorGray" />
 
             <RelativeLayout
+                android:id="@+id/fragment_mine_coupon_relativelayout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
                 <ImageView
@@ -297,6 +303,7 @@
                 android:background="@color/colorGray" />
 
             <RelativeLayout
+                android:id="@+id/fragment_mine_understand_relativelayout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <ImageView
@@ -339,6 +346,7 @@
                 android:background="@color/colorGray" />
 
             <RelativeLayout
+                android:id="@+id/fragment_mine_hotline_relativelayout"
                 android:layout_width="match_parent"
                 android:layout_height="60dp">
                 <ImageView

@@ -1,9 +1,12 @@
 package com.example.dllo.a36kr.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.android.volley.RequestQueue;
@@ -14,10 +17,12 @@ import com.android.volley.toolbox.Volley;
 import com.example.dllo.a36kr.R;
 import com.example.dllo.a36kr.model.bean.CarouselBean;
 import com.example.dllo.a36kr.model.bean.NewFragmentBean;
+import com.example.dllo.a36kr.ui.activity.NewsFragmentActivity;
 import com.example.dllo.a36kr.ui.adapter.NewsFragmentAdapter;
 import com.example.dllo.a36kr.utils.AllContantValues;
 import com.example.dllo.a36kr.view.LoopView;
 import com.example.dllo.a36kr.view.LoopViewEntity;
+import com.example.dllo.a36kr.view.ReFlashListView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -25,19 +30,24 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/20.
+ * NewsFragment 的复用Fragment
  */
-public class NewsUseFragment extends AbsFragment {
-
-
+public class NewsUseFragment extends AbsFragment implements ReFlashListView.IReflashListener {
     private ListView listView;
     private NewsFragmentAdapter newsFragmentAdapter;
     private RequestQueue queue;
     private LoopView newsLoopView;
-    private boolean ifHaveTitle = true;
     private List<LoopViewEntity> entities = new ArrayList<>();
     private View handerView;
+    private List<NewFragmentBean.DataBean.DataBean1> datas;
+    private ReFlashListView reFlashListView = new ReFlashListView(getContext());
 
-
+    /**
+     * 单例
+     * @param str NewsFragment 的网址
+     * @param ifHaveTitle 是否含有轮播图
+     * @return
+     */
     public static NewsUseFragment newInstance(String str, boolean ifHaveTitle) {
         Bundle args = new Bundle();
         args.putString("url", str);
@@ -55,8 +65,6 @@ public class NewsUseFragment extends AbsFragment {
     @Override
     protected void initViews() {
         listView = byView(R.id.fragment_news_use_listview);
-
-
     }
 
     @Override
@@ -66,7 +74,14 @@ public class NewsUseFragment extends AbsFragment {
         boolean ifHaveTitle = bundle.getBoolean("ifHaveTitle");
         newsFragmentAdapter = new NewsFragmentAdapter(getContext());
 
-        queue = Volley.newRequestQueue(getContext());
+        /**
+         * 解析轮播图的网络
+         */
+        queue = Volley.newRequestQueue(getContext());//请求队列的初始化
+        /**
+         * 加这个判断是为了在没有轮播图的时候,不需要加载轮播图
+         * 减少运行时间
+         */
         if (ifHaveTitle == true) {
             handerView = LayoutInflater.from(getContext()).inflate(R.layout.news_listhandview, null);
             newsLoopView = (LoopView) handerView.findViewById(R.id.news_loopview);
@@ -91,13 +106,9 @@ public class NewsUseFragment extends AbsFragment {
                     CarouselBean myBean = gson.fromJson(response, CarouselBean.class);
                     //获取解析数据的集合
                     List<CarouselBean.DataBean.PicsBean> datas1 = myBean.getData().getPics();
-
                     for (int i = 0; i < datas1.size(); i++) {
                         LoopViewEntity e = new LoopViewEntity();
-                        Log.d("DiscoveryFragment", "e:" + e);
-
                         e.setImageUrl(datas1.get(i).getImgUrl());
-                        Log.d("DiscoveryFragment", "e1:" + e);
                         entities.add(e);
                     }
                     newsLoopView.setLoopData(entities);
@@ -109,16 +120,20 @@ public class NewsUseFragment extends AbsFragment {
 
                 }
             });
-            queue.add(sr1);
+            queue.add(sr1);//将网络数据加入请求队列
         }
-
-
+        /**
+         * 解析NewsFragment的网络,如全部,早期项目....
+         */
         StringRequest sr = new StringRequest(string, new Response.Listener<String>() {
+
+
+
             @Override
             public void onResponse(String response) {
                 Gson gson = new Gson();
                 NewFragmentBean newFragmentBean = gson.fromJson(response, NewFragmentBean.class);
-                List<NewFragmentBean.DataBean.DataBean1> datas = newFragmentBean.getData().getData();
+                datas = newFragmentBean.getData().getData();
                 newsFragmentAdapter.setDatas(datas);
             }
         }, new Response.ErrorListener() {
@@ -128,9 +143,44 @@ public class NewsUseFragment extends AbsFragment {
             }
         });
         queue.add(sr);
-        listView.setAdapter(newsFragmentAdapter);
+        listView.setAdapter(newsFragmentAdapter);//加载适配器
+        /**
+         * 设置listView(列表视图) 的监听事件
+         * 点击跳转到 NewsFragment的详情页
+         */
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getActivity(),NewsFragmentActivity.class);
+                intent.putExtra("title",datas.getClass().getName());
+                intent.putExtra("columnName",datas.get(0).getColumnName());
+                intent.putExtra("publishTime",datas.get(0).getPublishTime());
+                intent.putExtra("authorName",datas.get(0).getUser().getName());
+                intent.putExtra("imgSrc",datas.get(0).getUser().getAvatar());
+                startActivity(intent);
+            }
+        });
 
     }
 
 
+    @Override
+    public void onReflash() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+
+                // 通知界面显示
+                listView = (ReFlashListView) listView.findViewById(R.id.fragment_news_use_listview);
+                listView.setAdapter(newsFragmentAdapter);
+                newsFragmentAdapter.setDatas(datas);
+                listView.setAdapter(newsFragmentAdapter);
+                // 通知ListView刷新数据完毕
+
+            }
+        },2000);
+        // 获取最新数据
+    }
 }

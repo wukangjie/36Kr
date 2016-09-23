@@ -1,5 +1,8 @@
 package com.example.dllo.a36kr.ui.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
@@ -9,6 +12,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.dllo.a36kr.R;
 import com.example.dllo.a36kr.model.bean.CarouselBean;
+import com.example.dllo.a36kr.ui.activity.ItoContralActivity;
+import com.example.dllo.a36kr.ui.activity.UnLoginActivity;
 import com.example.dllo.a36kr.utils.AllContantValues;
 import com.example.dllo.a36kr.view.LoopView;
 import com.example.dllo.a36kr.view.LoopViewEntity;
@@ -20,7 +25,7 @@ import java.util.List;
 /**
  * Created by dllo on 16/9/9.
  */
-public class DiscoverFragment extends AbsFragment {
+public class DiscoverFragment extends AbsFragment  {
     private LoopView loopView;
     private RequestQueue queue;
     private List<LoopViewEntity> entities = new ArrayList<>();
@@ -82,4 +87,6 @@ public class DiscoverFragment extends AbsFragment {
         queue.add(sr);
 
     }
+
+
 }

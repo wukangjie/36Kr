@@ -16,9 +16,9 @@ import me.yokeyword.swipebackfragment.SwipeBackActivity;
 
 /**
  * Created by dllo on 16/9/13.
- * news详情页
+ * NewsFragment的详情页
  */
-public class NewsFragmentActivity extends SwipeBackActivity{
+public class NewsFragmentActivity extends AbsBaseActivity{
     private ImageView titleImg;
     private TextView authorTv;
     private TextView likeTv;
@@ -28,9 +28,12 @@ public class NewsFragmentActivity extends SwipeBackActivity{
 
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news_fragment);
+    protected int setLayout() {
+        return R.layout.activity_news_fragment;
+    }
+
+    @Override
+    protected void initViews() {
         titleImg = (ImageView) findViewById(R.id.activity_news_fragment_title_img);
         authorTv = (TextView) findViewById(R.id.activity_news_fragment_title_name);
         likeTv = (TextView) findViewById(R.id.activity_news_fragment_title_like);
@@ -48,8 +51,10 @@ public class NewsFragmentActivity extends SwipeBackActivity{
         timeTv.setText(publishTime);
         Picasso.with(this).load(imgSrc).into(titleImg);
     }
+
     @Override
-    public void setVrModeEnabled(boolean enabled, ComponentName requestedComponent) throws PackageManager.NameNotFoundException {
-        getSwipeBackLayout().setEnableGesture(true);
+    protected void initDatas() {
+
     }
+
 }

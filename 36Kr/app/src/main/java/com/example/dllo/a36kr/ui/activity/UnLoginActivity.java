@@ -18,6 +18,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/22.
+ * MineFragment 未登录时显示的详情页
  */
 public class UnLoginActivity extends AbsBaseActivity {
     private TabLayout mTabLayout;
@@ -39,16 +40,21 @@ public class UnLoginActivity extends AbsBaseActivity {
 
     @Override
     protected void initDatas() {
+        /**
+         * 返回键的点击事件
+         */
         mBackImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("UnLoginActivity", "点击了返回键");
                 finish();
             }
         });
         fragments = new ArrayList<>();
         fragments.add(new LoginFragment());
         fragments.add(new RegisterFragment());
+        /**
+         * ViewPage 绑定适配器
+         */
         mViewPager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/18.
+ * 股权投资的实体类
  */
 public class EquityFragmentBean {
 

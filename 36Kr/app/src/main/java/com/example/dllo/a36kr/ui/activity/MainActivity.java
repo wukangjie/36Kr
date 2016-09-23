@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,7 @@ import com.example.dllo.a36kr.ui.fragment.MineFragment;
 import com.example.dllo.a36kr.ui.fragment.NewsFragment;
 import com.example.dllo.a36kr.ui.fragment.NewsUseFragment;
 import com.example.dllo.a36kr.utils.AllContantValues;
+import com.example.dllo.a36kr.view.ReFlashListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,7 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
     private LinearLayout researchLl;
     private ImageView backImg;
     private NewsFragment newsFragment;
+
 
 
     @Override
@@ -127,7 +130,6 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
         mainTl.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                Log.d("zzz", "mainTl.getSelectedTabPosition():" + mainTl.getSelectedTabPosition());
                 if (tab.getPosition() == 0) {
                     mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                 } else {
@@ -152,6 +154,7 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
 
     /**
      * 抽屉的点击事件
+     *
      * @param v
      */
 
@@ -198,6 +201,7 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
 
     /**
      * 接口回调接收NewsFragment传来的值
+     *
      * @param state
      */
     @Override
@@ -206,5 +210,6 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
             mainDrawerLayout.openDrawer(lineatLayout);
         }
     }
+
 
 }

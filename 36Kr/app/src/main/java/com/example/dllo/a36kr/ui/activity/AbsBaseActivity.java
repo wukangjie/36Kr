@@ -12,6 +12,7 @@ import com.example.dllo.a36kr.utils.T;
 
 /**
  * Created by dllo on 16/9/8.
+ * Activity的基类
  */
 public abstract class AbsBaseActivity extends AppCompatActivity {
     @Override

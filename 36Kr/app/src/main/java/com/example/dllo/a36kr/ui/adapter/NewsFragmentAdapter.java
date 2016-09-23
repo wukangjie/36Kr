@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/13.
+ * 新闻Framgent的适配器
  */
 public class NewsFragmentAdapter extends BaseAdapter {
     private Context context;
@@ -66,15 +67,18 @@ public class NewsFragmentAdapter extends BaseAdapter {
             holder.newsItemContentTv.setText(bean.getTitle());
             holder.newsItemAuthorTv.setText(bean.getUser().getName());
             holder.newsItemTypeTv.setText(bean.getColumnName());
+            /**
+             * 判断不同类型项目,显示不同的颜色
+             */
             if (bean.getColumnName() == "早期项目"){
                 holder.newsItemTypeTv.setTextColor(Color.GREEN);
             }else {
                 holder.newsItemTypeTv.setTextColor(Color.BLUE);
             }
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss");
+            SimpleDateFormat format = new SimpleDateFormat("MM-dd-HH:mm");//将时间转换为正常显示
             String publishTime =format.format(new Date(bean.getPublishTime()));
             holder.newsItemTimeTv.setText( publishTime);
-            Picasso.with(context).load(bean.getFeatureImg()).into(holder.newsItemImg);
+            Picasso.with(context).load(bean.getFeatureImg()).into(holder.newsItemImg);//毕加索加载图片
 
         }
         return convertView;

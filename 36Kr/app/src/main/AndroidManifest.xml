@@ -20,6 +20,8 @@
 
         <activity android:name=".ui.activity.NewsFragmentActivity"/>
         <activity android:name=".ui.activity.UnLoginActivity"/>
+
     </application>
+
 
 </manifest>
