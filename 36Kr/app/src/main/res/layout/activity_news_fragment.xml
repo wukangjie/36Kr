@@ -2,7 +2,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/activity_scrollview"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,10 +16,10 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/activity_news_fragment_title_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_margin="@dimen/activity_vertical_margin"
                 android:src="@mipmap/ic_launcher" />
 
@@ -88,9 +90,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="07:21"
+                android:textSize="15sp"
+                android:textColor="@color/colorBlack"
                 android:layout_marginLeft="20dp"
                 />
-            <TextView
+            <WebView
                 android:id="@+id/activity_news_fragment_content_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

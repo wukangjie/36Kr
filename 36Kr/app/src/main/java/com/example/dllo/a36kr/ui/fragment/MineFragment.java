@@ -4,13 +4,17 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.dllo.a36kr.R;
+import com.example.dllo.a36kr.model.bean.IsLoginBean;
 import com.example.dllo.a36kr.ui.activity.ItoContralActivity;
 import com.example.dllo.a36kr.ui.activity.UnLoginActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 
 /**
@@ -19,6 +23,7 @@ import com.example.dllo.a36kr.ui.activity.UnLoginActivity;
 public class MineFragment extends AbsFragment implements View.OnClickListener {
     private RelativeLayout loginRLL;
     private boolean isLogin = false;
+    private EventBus mEventBus;
     private ImageView mSettingImg;
     private RelativeLayout mOrderRL, mAccoutRL;
     private RelativeLayout mAuthenticationRL, mFavoriteRL;
@@ -45,6 +50,8 @@ public class MineFragment extends AbsFragment implements View.OnClickListener {
         mCouponRL = byView(R.id.fragment_mine_company_relativelayout);
         mUnderstandRL = byView(R.id.fragment_mine_understand_relativelayout);
         mHontlineRL = byView(R.id.fragment_mine_hotline_relativelayout);
+        mEventBus = EventBus.getDefault();
+
 
     }
 
@@ -60,6 +67,11 @@ public class MineFragment extends AbsFragment implements View.OnClickListener {
         mCouponRL.setOnClickListener(this);
         mUnderstandRL.setOnClickListener(this);
         mHontlineRL.setOnClickListener(this);
+        boolean data = isLogin;
+        IsLoginBean bean = new IsLoginBean();
+        bean.setData(data);
+        mEventBus.post(bean);
+        Log.d("MineFragment", "发送");
 
 
     }
@@ -139,7 +151,8 @@ public class MineFragment extends AbsFragment implements View.OnClickListener {
         }
 
 
-
-
     }
+
+
 }
+

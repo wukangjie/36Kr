@@ -17,6 +17,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.dllo.a36kr.R;
 import com.example.dllo.a36kr.model.bean.EquityFragmentBean;
+import com.example.dllo.a36kr.model.net.VolleyInstance;
+import com.example.dllo.a36kr.model.net.VolleyReault;
 import com.example.dllo.a36kr.ui.adapter.EquityFragmentAdapter;
 import com.google.gson.Gson;
 
@@ -24,6 +26,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/10.
+ * EquityFragment 的复用Fragment
  */
 public class EquityUseFragment extends AbsFragment {
     private ListView listView;
@@ -59,40 +62,25 @@ public class EquityUseFragment extends AbsFragment {
     protected void initDatas() {
         Bundle bundle = getArguments();
         String string = bundle.getString("url");
-        Log.d("aaaa", string+"");
-        queue = Volley.newRequestQueue(getContext());
-        StringRequest sr = new StringRequest(string, new Response.Listener<String>() {
+        VolleyInstance.getInstance().startRequest(string, new VolleyReault() {
             @Override
-            public void onResponse(String response) {
-                Log.d("xxx", response);
-                //解析
-                //Gson 谷歌的 添加依赖
-                //FastJson 阿里巴巴的
-                /**
-                 * 解析框架
-                 * 给他一个实体类,就给你解析出数据
-                 * 1.实体类属性名-要和接口中的属性名必须一致
-                 */
+            public void success(String resultStr) {
                 Gson gson = new Gson();
                 //解析数据到实体类
                 //gson从json数据解析
                 //参数一:哪个json数据
                 //参数二:解析到那个实体类
-                EquityFragmentBean myBean = gson.fromJson(response,EquityFragmentBean.class);
+                EquityFragmentBean myBean = gson.fromJson(resultStr,EquityFragmentBean.class);
                 //获取解析数据的集合
                 List<EquityFragmentBean.DataBean.DataBean1> datas = myBean.getData().getData();
                 adapter.setDatas(datas);
-
             }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
 
+            @Override
+            public void failure() {
 
             }
         });
-        //加入请求队列
-        queue.add(sr);
 
     }
 }

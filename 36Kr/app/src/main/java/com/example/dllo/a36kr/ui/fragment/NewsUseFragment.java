@@ -17,6 +17,8 @@ import com.android.volley.toolbox.Volley;
 import com.example.dllo.a36kr.R;
 import com.example.dllo.a36kr.model.bean.CarouselBean;
 import com.example.dllo.a36kr.model.bean.NewFragmentBean;
+import com.example.dllo.a36kr.model.net.VolleyInstance;
+import com.example.dllo.a36kr.model.net.VolleyReault;
 import com.example.dllo.a36kr.ui.activity.NewsFragmentActivity;
 import com.example.dllo.a36kr.ui.adapter.NewsFragmentAdapter;
 import com.example.dllo.a36kr.utils.AllContantValues;
@@ -25,6 +27,7 @@ import com.example.dllo.a36kr.view.LoopViewEntity;
 import com.example.dllo.a36kr.view.ReFlashListView;
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,18 +36,17 @@ import java.util.List;
  * NewsFragment 的复用Fragment
  */
 public class NewsUseFragment extends AbsFragment implements ReFlashListView.IReflashListener {
-    private ListView listView;
+    private ReFlashListView listView;
     private NewsFragmentAdapter newsFragmentAdapter;
-    private RequestQueue queue;
     private LoopView newsLoopView;
     private List<LoopViewEntity> entities = new ArrayList<>();
     private View handerView;
     private List<NewFragmentBean.DataBean.DataBean1> datas;
-    private ReFlashListView reFlashListView = new ReFlashListView(getContext());
 
     /**
      * 单例
-     * @param str NewsFragment 的网址
+     *
+     * @param str         NewsFragment 的网址
      * @param ifHaveTitle 是否含有轮播图
      * @return
      */
@@ -77,7 +79,7 @@ public class NewsUseFragment extends AbsFragment implements ReFlashListView.IRef
         /**
          * 解析轮播图的网络
          */
-        queue = Volley.newRequestQueue(getContext());//请求队列的初始化
+//        queue = Volley.newRequestQueue(getContext());//请求队列的初始化
         /**
          * 加这个判断是为了在没有轮播图的时候,不需要加载轮播图
          * 减少运行时间
@@ -86,24 +88,15 @@ public class NewsUseFragment extends AbsFragment implements ReFlashListView.IRef
             handerView = LayoutInflater.from(getContext()).inflate(R.layout.news_listhandview, null);
             newsLoopView = (LoopView) handerView.findViewById(R.id.news_loopview);
             listView.addHeaderView(handerView);
-            StringRequest sr1 = new StringRequest(AllContantValues.ALLNEWSROTATEURL, new Response.Listener<String>() {
+            VolleyInstance.getInstance().startRequest(AllContantValues.ALLNEWSROTATEURL, new VolleyReault() {
                 @Override
-                public void onResponse(String response) {
-                    Log.d("xxx", response);
-                    //解析
-                    //Gson 谷歌的 添加依赖
-                    //FastJson 阿里巴巴的
-                    /**
-                     * 解析框架
-                     * 给他一个实体类,就给你解析出数据
-                     * 1.实体类属性名-要和接口中的属性名必须一致
-                     */
+                public void success(String resultStr) {
                     Gson gson = new Gson();
                     //解析数据到实体类
                     //gson从json数据解析
                     //参数一:哪个json数据
                     //参数二:解析到那个实体类
-                    CarouselBean myBean = gson.fromJson(response, CarouselBean.class);
+                    CarouselBean myBean = gson.fromJson(resultStr, CarouselBean.class);
                     //获取解析数据的集合
                     List<CarouselBean.DataBean.PicsBean> datas1 = myBean.getData().getPics();
                     for (int i = 0; i < datas1.size(); i++) {
@@ -113,37 +106,33 @@ public class NewsUseFragment extends AbsFragment implements ReFlashListView.IRef
                     }
                     newsLoopView.setLoopData(entities);
                 }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
 
+                @Override
+                public void failure() {
 
                 }
             });
-            queue.add(sr1);//将网络数据加入请求队列
         }
         /**
          * 解析NewsFragment的网络,如全部,早期项目....
          */
-        StringRequest sr = new StringRequest(string, new Response.Listener<String>() {
-
-
-
+        VolleyInstance.getInstance().startRequest(string, new VolleyReault() {
             @Override
-            public void onResponse(String response) {
+            public void success(String resultStr) {
                 Gson gson = new Gson();
-                NewFragmentBean newFragmentBean = gson.fromJson(response, NewFragmentBean.class);
+                NewFragmentBean newFragmentBean = gson.fromJson(resultStr, NewFragmentBean.class);
                 datas = newFragmentBean.getData().getData();
                 newsFragmentAdapter.setDatas(datas);
             }
-        }, new Response.ErrorListener() {
+
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void failure() {
 
             }
         });
-        queue.add(sr);
         listView.setAdapter(newsFragmentAdapter);//加载适配器
+        listView.setInterface(this);
+
         /**
          * 设置listView(列表视图) 的监听事件
          * 点击跳转到 NewsFragment的详情页
@@ -151,15 +140,15 @@ public class NewsUseFragment extends AbsFragment implements ReFlashListView.IRef
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getActivity(),NewsFragmentActivity.class);
-                intent.putExtra("title",datas.getClass().getName());
-                intent.putExtra("columnName",datas.get(0).getColumnName());
-                intent.putExtra("publishTime",datas.get(0).getPublishTime());
-                intent.putExtra("authorName",datas.get(0).getUser().getName());
-                intent.putExtra("imgSrc",datas.get(0).getUser().getAvatar());
+                Intent intent = new Intent(getActivity(), NewsFragmentActivity.class);
+                SimpleDateFormat format = new SimpleDateFormat("MM-dd-HH:mm");//将时间转换为正常显示
+                String publishTime = format.format(datas.get(position - 2).getPublishTime());
+                intent.putExtra("publishTime", publishTime + "");
+                intent.putExtra("postId", datas.get(position - 2).getFeedId());
                 startActivity(intent);
             }
         });
+
 
     }
 
@@ -178,9 +167,10 @@ public class NewsUseFragment extends AbsFragment implements ReFlashListView.IRef
                 newsFragmentAdapter.setDatas(datas);
                 listView.setAdapter(newsFragmentAdapter);
                 // 通知ListView刷新数据完毕
+                listView.reflshComplete();
 
             }
-        },2000);
+        }, 2000);
         // 获取最新数据
     }
 }
