@@ -31,14 +31,10 @@ import java.util.List;
 public class EquityUseFragment extends AbsFragment {
     private ListView listView;
     private EquityFragmentAdapter adapter;
-    private RequestQueue queue;
-
-
 
     public static EquityUseFragment newInstance(String str){
         Bundle args = new Bundle();
         args.putString("url",str);
-        Log.d("vvv", str);
         EquityUseFragment equityUseFragment = new EquityUseFragment();
         equityUseFragment.setArguments(args);
         return equityUseFragment;

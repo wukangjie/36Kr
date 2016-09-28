@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
+import android.widget.Toast;
 
 
 import java.util.List;
@@ -58,7 +58,7 @@ public class LoopViewAdapter extends PagerAdapter {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onItemClick(position);
+                Toast.makeText(context, "点击了"+position, Toast.LENGTH_SHORT).show();
             }
         });
         container.addView(view);

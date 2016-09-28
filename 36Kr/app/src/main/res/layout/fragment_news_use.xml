@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.example.dllo.a36kr.view.RefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:id="@+id/fragment_news_use_swipe"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.example.dllo.a36kr.view.ReFlashListView
+    <ListView
         android:id="@+id/fragment_news_use_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-</LinearLayout>
+</com.example.dllo.a36kr.view.RefreshLayout>

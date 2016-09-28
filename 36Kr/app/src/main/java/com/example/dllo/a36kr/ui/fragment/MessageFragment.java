@@ -13,6 +13,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Created by dllo on 16/9/9.
+ * 消息Fragment
  */
 public class MessageFragment extends AbsFragment {
     @Override
@@ -31,7 +32,6 @@ public class MessageFragment extends AbsFragment {
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getData(IsLoginBean bean){
-        Log.d("qqq", "bean.isData():" + bean.isData());
         if (!bean.isData()){
             startActivity(new Intent(getActivity(), UnLoginActivity.class));
         }

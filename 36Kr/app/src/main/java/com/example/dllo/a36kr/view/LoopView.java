@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dllo.a36kr.R;
 
@@ -24,8 +25,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by idisfkj on 16/8/8.
- * Email : idisfkj@qq.com.
+ * 无限自动旋转
+ *
  */
 public class LoopView extends FrameLayout implements ViewPager.OnPageChangeListener, View.OnTouchListener {
     protected ViewPager viewPager;
@@ -97,7 +98,7 @@ public class LoopView extends FrameLayout implements ViewPager.OnPageChangeListe
         adapter.setOnItemClickListener(new LoopViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                listener.onItemClick(position);
+                Toast.makeText(getContext(), "点击了" + position + "行", Toast.LENGTH_SHORT).show();
             }
         });
         viewPager.setAdapter(adapter);

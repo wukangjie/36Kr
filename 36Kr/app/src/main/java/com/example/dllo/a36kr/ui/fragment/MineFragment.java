@@ -19,12 +19,13 @@ import org.greenrobot.eventbus.EventBus;
 
 /**
  * Created by dllo on 16/9/9.
+ * 我的Fragment
  */
 public class MineFragment extends AbsFragment implements View.OnClickListener {
-    private RelativeLayout loginRLL;
-    private boolean isLogin = false;
+    private RelativeLayout loginRLL;//登录控件
+    private boolean isLogin = false;//判断是否登录
     private EventBus mEventBus;
-    private ImageView mSettingImg;
+    private ImageView mSettingImg;//设置图标
     private RelativeLayout mOrderRL, mAccoutRL;
     private RelativeLayout mAuthenticationRL, mFavoriteRL;
     private RelativeLayout mCompanyRL;
@@ -67,11 +68,13 @@ public class MineFragment extends AbsFragment implements View.OnClickListener {
         mCouponRL.setOnClickListener(this);
         mUnderstandRL.setOnClickListener(this);
         mHontlineRL.setOnClickListener(this);
+        /**
+         * 将是否登录的信息发送给MessageFragment
+         */
         boolean data = isLogin;
         IsLoginBean bean = new IsLoginBean();
         bean.setData(data);
         mEventBus.post(bean);
-        Log.d("MineFragment", "发送");
 
 
     }

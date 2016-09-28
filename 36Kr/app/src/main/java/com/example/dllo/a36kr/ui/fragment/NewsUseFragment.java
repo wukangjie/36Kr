@@ -3,17 +3,12 @@ package com.example.dllo.a36kr.ui.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
 import com.example.dllo.a36kr.R;
 import com.example.dllo.a36kr.model.bean.CarouselBean;
 import com.example.dllo.a36kr.model.bean.NewFragmentBean;
@@ -24,7 +19,7 @@ import com.example.dllo.a36kr.ui.adapter.NewsFragmentAdapter;
 import com.example.dllo.a36kr.utils.AllContantValues;
 import com.example.dllo.a36kr.view.LoopView;
 import com.example.dllo.a36kr.view.LoopViewEntity;
-import com.example.dllo.a36kr.view.ReFlashListView;
+import com.example.dllo.a36kr.view.RefreshLayout;
 import com.google.gson.Gson;
 
 import java.text.SimpleDateFormat;
@@ -35,13 +30,17 @@ import java.util.List;
  * Created by dllo on 16/9/20.
  * NewsFragment 的复用Fragment
  */
-public class NewsUseFragment extends AbsFragment implements ReFlashListView.IReflashListener {
-    private ReFlashListView listView;
+public class NewsUseFragment extends AbsFragment  {
+    private RefreshLayout swipeRefreshLayout;
+    private ListView listView;
     private NewsFragmentAdapter newsFragmentAdapter;
     private LoopView newsLoopView;
     private List<LoopViewEntity> entities = new ArrayList<>();
     private View handerView;
+    private String string;
     private List<NewFragmentBean.DataBean.DataBean1> datas;
+    private List<NewFragmentBean.DataBean.DataBean1> datas1;
+
 
     /**
      * 单例
@@ -67,18 +66,82 @@ public class NewsUseFragment extends AbsFragment implements ReFlashListView.IRef
     @Override
     protected void initViews() {
         listView = byView(R.id.fragment_news_use_listview);
+        swipeRefreshLayout = byView(R.id.fragment_news_use_swipe);
     }
 
     @Override
     protected void initDatas() {
         Bundle bundle = getArguments();
-        String string = bundle.getString("url");
+        string = bundle.getString("url");
         boolean ifHaveTitle = bundle.getBoolean("ifHaveTitle");
         newsFragmentAdapter = new NewsFragmentAdapter(getContext());
+        listView.setAdapter(newsFragmentAdapter);//加载适配器
 
         /**
-         * 解析轮播图的网络
+         * 设置下拉刷新
          */
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_red_light, android.R.color.holo_orange_light,
+                android.R.color.holo_green_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        VolleyInstance.getInstance().startRequest(string, new VolleyReault() {
+                            @Override
+                            public void success(String resultStr) {
+                                Gson gson = new Gson();
+                                NewFragmentBean newFragmentBean = gson.fromJson(resultStr, NewFragmentBean.class);
+                                datas = newFragmentBean.getData().getData();
+                                newsFragmentAdapter.setDatas(datas);
+                            }
+
+                            @Override
+                            public void failure() {
+
+                            }
+                        });
+                        //停止刷新动画
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
+        swipeRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+            @Override
+            public void onLoad() {
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        VolleyInstance.getInstance().startRequest(string, new VolleyReault() {
+                            @Override
+                            public void success(String resultStr) {
+                                Gson gson = new Gson();
+                                NewFragmentBean newFragmentBean = gson.fromJson(resultStr, NewFragmentBean.class);
+                                datas1 = newFragmentBean.getData().getData();
+                                datas.addAll(datas1);
+                                newsFragmentAdapter.setDatas(datas);
+                            }
+
+                            @Override
+                            public void failure() {
+
+                            }
+                        });
+                        //停止刷新动画
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
+
+    /**
+     * 解析轮播图的网络
+     */
 //        queue = Volley.newRequestQueue(getContext());//请求队列的初始化
         /**
          * 加这个判断是为了在没有轮播图的时候,不需要加载轮播图
@@ -130,8 +193,6 @@ public class NewsUseFragment extends AbsFragment implements ReFlashListView.IRef
 
             }
         });
-        listView.setAdapter(newsFragmentAdapter);//加载适配器
-        listView.setInterface(this);
 
         /**
          * 设置listView(列表视图) 的监听事件
@@ -153,24 +214,4 @@ public class NewsUseFragment extends AbsFragment implements ReFlashListView.IRef
     }
 
 
-    @Override
-    public void onReflash() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-
-                // 通知界面显示
-                listView = (ReFlashListView) listView.findViewById(R.id.fragment_news_use_listview);
-                listView.setAdapter(newsFragmentAdapter);
-                newsFragmentAdapter.setDatas(datas);
-                listView.setAdapter(newsFragmentAdapter);
-                // 通知ListView刷新数据完毕
-                listView.reflshComplete();
-
-            }
-        }, 2000);
-        // 获取最新数据
-    }
 }

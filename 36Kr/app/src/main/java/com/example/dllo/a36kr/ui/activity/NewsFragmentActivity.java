@@ -2,6 +2,7 @@ package com.example.dllo.a36kr.ui.activity;
 
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -29,19 +30,19 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class NewsFragmentActivity extends AbsBaseActivity {
 
 
-    private String postId;
-    private ImageView titleImg;
-    private TextView authorTv;
-    private TextView likeTv;
-    private TextView titleTv;
-    private WebView contentTv;
-    private TextView timeTv;
-    private String contentS;
-    private String titleTvS;
-    private String likeTvS;
-    private String titleImgS;
-    private String authorTvS;
-    private String publishTime;
+    private String postId;//定义从NewsFragment传来的ID
+    private ImageView titleImg;//定义作者头像
+    private TextView authorTv;//定义作者姓名
+    private TextView likeTv;//简介
+    private TextView titleTv;//标题
+    private WebView contentTv;//内容
+    private TextView timeTv;//时间
+    private String contentS;//内容
+    private String titleTvS;//标题
+    private String likeTvS;//简介
+    private String titleImgS;//头像
+    private String authorTvS;//作者
+    private String publishTime;//时间
 
 
     @Override
@@ -63,6 +64,10 @@ public class NewsFragmentActivity extends AbsBaseActivity {
 
     @Override
     protected void initDatas() {
+
+        /**
+         * 设置不跳转网页,在当前页面显示
+         */
         contentTv.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -75,12 +80,18 @@ public class NewsFragmentActivity extends AbsBaseActivity {
             }
 
         });
-        Intent intent = getIntent();
+        Intent intent = getIntent();//获取传值
         postId = intent.getStringExtra("postId");
         publishTime = intent.getStringExtra("publishTime");
+        /**
+         * 网络请求
+         */
         VolleyInstance.getInstance().startRequest(AllContantValues.ACTIVITYNEWSDETAIL + postId, new VolleyReault() {
             @Override
             public void success(String resultStr) {
+                /**
+                 * JSON数据解析
+                 */
                 JSONObject obj = null;
                 try {
                     obj = new JSONObject(resultStr);
@@ -94,7 +105,7 @@ public class NewsFragmentActivity extends AbsBaseActivity {
                     titleTv.setText(titleTvS);
                     likeTv.setText(likeTvS);
                     if (likeTv.equals(null)) {
-                        likeTv.setText("这个作者很懒,什么都没有留下");
+                        likeTv.setText(R.string.activity_news_Fragment_like);
                     }
 
                     timeTv.setText(publishTime);

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.dllo.a36kr">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name=".ui.app.MyApp"
@@ -17,11 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".ui.activity.NewsFragmentActivity"/>
-        <activity android:name=".ui.activity.UnLoginActivity"/>
-
+        <activity android:name=".ui.activity.NewsFragmentActivity" />
+        <activity android:name=".ui.activity.UnLoginActivity" />
+        <activity android:name=".ui.activity.DiscoverCreateActivity" />
+        <activity android:name=".ui.activity.DiscoverResearchActivity" />
+        <activity android:name=".ui.activity.DiscoverRecentActivity" />
+        <activity android:name=".ui.activity.DiscoverInvestorActivity"></activity>
     </application>
-
 
 </manifest>

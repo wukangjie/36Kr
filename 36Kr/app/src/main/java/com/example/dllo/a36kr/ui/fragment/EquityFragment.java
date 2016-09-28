@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/9.
- * 股权投资
+ * 股权投资Fragment
  */
 public class EquityFragment extends AbsFragment implements View.OnClickListener {
     private TabLayout fragmentEquityTablayout;
@@ -57,7 +57,9 @@ public class EquityFragment extends AbsFragment implements View.OnClickListener 
         titles.add("募资完成");
         titles.add("融资成功");
 
-
+        /**
+         * ViewPager绑定适配器
+         */
         fragmentEquityViewpager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {

@@ -158,9 +158,10 @@
             android:textColor="@color/colorTabBlue"
             android:textSize="20sp" />
 
-        <SeekBar
-            android:id="@+id/equity_item_seekbar"
+        <ProgressBar
+            android:id="@+id/equity_item_progressbar"
             android:layout_width="250dp"
+            style="?android:attr/progressBarStyleHorizontal"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/equity_item_raise_tv"
             android:layout_below="@id/equity_item_raise_tv" />
@@ -169,8 +170,8 @@
             android:id="@+id/equity_item_progress_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@id/equity_item_seekbar"
-            android:layout_alignRight="@id/equity_item_seekbar"
+            android:layout_above="@id/equity_item_progressbar"
+            android:layout_alignRight="@id/equity_item_progressbar"
             android:text="已融资78%"
             android:textSize="20sp" />
 

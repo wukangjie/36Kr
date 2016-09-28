@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/activity_discover_item_title_img"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/activity_discover_item_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_discover_item_title_img"
+        android:layout_marginLeft="16dp"
+        android:text="中关村创新创业季-极客挑战72小时"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/activity_discover_item_content_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_discover_item_title_tv"
+        android:layout_margin="16dp"
+        android:text="带着你的BP或者策划参加极客挑战72小时海选"
+        android:textColor="#000"
+        android:textSize="16sp"
+
+        />
+
+    <RelativeLayout
+        android:id="@+id/activity_discover_item_apply_rl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_discover_item_content_tv"
+        android:layout_marginLeft="16dp"
+        android:background="@drawable/rectangle_bg">
+
+        <TextView
+            android:id="@+id/activity_discover_item_apply_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:text="报名中"
+            android:textColor="@color/colorTabBlue"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/activity_discover_item_place_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/activity_discover_item_apply_rl"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/activity_discover_item_apply_rl"
+        android:text="北京"
+        android:textColor="#000"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/activity_discover_item_time_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/activity_discover_item_apply_rl"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:text="10月12日-10月14日"
+        android:textColor="#000" />
+
+</RelativeLayout>

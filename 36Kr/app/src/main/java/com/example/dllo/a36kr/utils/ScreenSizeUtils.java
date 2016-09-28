@@ -6,6 +6,7 @@ import android.view.WindowManager;
 
 /**
  * Created by dllo on 16/9/13.
+ * 获取屏幕的宽高
  */
 public class ScreenSizeUtils {
     public static int getSreenWidth(Context context){

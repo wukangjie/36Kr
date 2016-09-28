@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/activity_discover_investor_item_title_img"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_margin="16dp"
+
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/activity_discover_investor_item_author_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/activity_discover_investor_item_title_img"
+        android:layout_toRightOf="@id/activity_discover_investor_item_title_img"
+        android:text="绿尾"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/activity_discover_investor_item_focus_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/activity_discover_investor_item_author_name"
+        android:layout_below="@id/activity_discover_investor_item_author_name"
+        android:layout_marginTop="10dp"
+        android:text="关注领域:"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/activity_discover_investor_item_focus_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_discover_investor_item_author_name"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/activity_discover_investor_item_focus_name"
+        android:text="关注领域:"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/activity_discover_investor_item_stage_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/activity_discover_investor_item_author_name"
+        android:layout_below="@id/activity_discover_investor_item_focus_name"
+        android:layout_marginTop="10dp"
+        android:text="投资阶段:"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/activity_discover_investor_item_stage_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_discover_investor_item_focus_name"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/activity_discover_investor_item_stage_name"
+        android:text="关注领域:"
+        android:textColor="#000"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/activity_discover_investor_item_stage_name"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorGray" />
+
+</RelativeLayout>

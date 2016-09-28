@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -81,7 +82,8 @@ public class EquityFragmentAdapter extends BaseAdapter {
             holder.hatchName.setText(bean.getCf_advantage().get(1).getAdcontent());
             holder.raiseTv.setText(bean.getFundStatus().getDesc());
             holder.progressTv.setText("已融资"+(int)(bean.getRate() * 100)+"%");
-            holder.seekBar.setProgress((int) (bean.getRate()*100));
+            holder.progressBar.setProgress((int) (bean.getRate()*100));
+
 
 
             Picasso.with(context).load(bean.getCompany_logo()).resize(width/6,height/10).into(holder.titleImg);
@@ -104,7 +106,7 @@ public class EquityFragmentAdapter extends BaseAdapter {
         TextView raiseTv;
         TextView progressTv;
         Button subscribeBtn;
-         SeekBar seekBar;
+         ProgressBar progressBar;
 
         public EquityFragmentHolder(View view){
             titleImg = (CircleImageView) view.findViewById(R.id.equity_item_title_img);
@@ -117,7 +119,8 @@ public class EquityFragmentAdapter extends BaseAdapter {
             raiseTv = (TextView) view.findViewById(R.id.equity_item_raise_tv);
             progressTv = (TextView) view.findViewById(R.id.equity_item_progress_tv);
             subscribeBtn = (Button) view.findViewById(R.id.equity_item_subscribe_btn);
-             seekBar =  (SeekBar) view.findViewById(R.id.equity_item_seekbar);
+            progressBar = (ProgressBar) view.findViewById(R.id.equity_item_progressbar);
+
         }
     }
 }

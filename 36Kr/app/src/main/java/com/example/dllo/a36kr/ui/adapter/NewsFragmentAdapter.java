@@ -2,6 +2,7 @@ package com.example.dllo.a36kr.ui.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,10 +68,13 @@ public class NewsFragmentAdapter extends BaseAdapter {
             holder.newsItemContentTv.setText(bean.getTitle());
             holder.newsItemAuthorTv.setText(bean.getUser().getName());
             holder.newsItemTypeTv.setText(bean.getColumnName());
+            Log.d("NewsFragmentAdapter", bean
+                    .getColumnName());
             /**
              * 判断不同类型项目,显示不同的颜色
              */
-            if (bean.getColumnName() == "早期项目"){
+            if (bean.getColumnName().equals("早期项目") == true){
+
                 holder.newsItemTypeTv.setTextColor(Color.GREEN);
             }else {
                 holder.newsItemTypeTv.setTextColor(Color.BLUE);

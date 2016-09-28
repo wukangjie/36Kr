@@ -24,5 +24,15 @@ public class AllContantValues {
     public static final String RAISEEQUITY = "https://rong.36kr.com/api/mobi/cf/actions/list?page=1&type=underway&pageSize=20";
     public static final String SUCCESSEQUITY = "https://rong.36kr.com/api/mobi/cf/actions/list?page=1&type=raise&pageSize=20";
     public static final String COMPLETEEQUITY = "https://rong.36kr.com/api/mobi/cf/actions/list?page=1&type=finish&pageSize=20";
+    /**
+     * 发现界面的网址
+     */
+    public static final String ALLDISSCOVERRECENT ="https://rong.36kr.com/api/mobi/activity/list?page=1";
+    public static final String DISSCOVERINVESTOR ="https://rong.36kr.com/api/mobi/investor?page=1&pageSize=20";
+    public static final String DISSCOVERDEMODAY = "https://rong.36kr.com/api/mobi/activity/list?page=1&categoryId=1&pageSize=20";
+    public static final String DISSCOVERSPACE = "https://rong.36kr.com/api/mobi/activity/list?page=1&categoryId=4&pageSize=20";
+    public static final String DISSCOVEREQUITY = "https://rong.36kr.com/api/mobi/activity/list?page=1&categoryId=5&pageSize=20";
+    public static final String DISSCOVERSERVICE = "https://rong.36kr.com/api/mobi/activity/list?page=1&categoryId=6&pageSize=20";
+    public static final String DISSCOVERFINANCING = "https://rong.36kr.com/api/mobi/activity/list?page=1&categoryId=7&pageSize=20";
 
 }
