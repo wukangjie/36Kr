@@ -1,8 +1,7 @@
 package com.example.dllo.a36kr.view;
 
 /**
- * Created by idisfkj on 16/8/8.
- * Email : idisfkj@qq.com.
+ * 轮播图的实体类
  */
 public class LoopViewEntity {
     private String imageUrl;

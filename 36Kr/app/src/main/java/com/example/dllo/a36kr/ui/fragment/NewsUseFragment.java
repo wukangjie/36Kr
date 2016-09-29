@@ -37,9 +37,11 @@ public class NewsUseFragment extends AbsFragment  {
     private LoopView newsLoopView;
     private List<LoopViewEntity> entities = new ArrayList<>();
     private View handerView;
-    private String string;
-    private List<NewFragmentBean.DataBean.DataBean1> datas;
+    private String string;//网址
+    private String strLoad;//拼接后的网址
+    private int pageSize = 40;//网址的条数
     private List<NewFragmentBean.DataBean.DataBean1> datas1;
+    private List<NewFragmentBean.DataBean.DataBean1> datas;
 
 
     /**
@@ -73,6 +75,8 @@ public class NewsUseFragment extends AbsFragment  {
     protected void initDatas() {
         Bundle bundle = getArguments();
         string = bundle.getString("url");
+        strLoad = string.replace("20",pageSize+"");
+
         boolean ifHaveTitle = bundle.getBoolean("ifHaveTitle");
         newsFragmentAdapter = new NewsFragmentAdapter(getContext());
         listView.setAdapter(newsFragmentAdapter);//加载适配器
@@ -117,14 +121,18 @@ public class NewsUseFragment extends AbsFragment  {
 
                     @Override
                     public void run() {
-                        VolleyInstance.getInstance().startRequest(string, new VolleyReault() {
+                        VolleyInstance.getInstance().startRequest(strLoad, new VolleyReault() {
+
                             @Override
                             public void success(String resultStr) {
+                                strLoad = strLoad.replace(pageSize+"",pageSize + 20 +"");
+
                                 Gson gson = new Gson();
                                 NewFragmentBean newFragmentBean = gson.fromJson(resultStr, NewFragmentBean.class);
                                 datas1 = newFragmentBean.getData().getData();
                                 datas.addAll(datas1);
-                                newsFragmentAdapter.setDatas(datas);
+//                                newsFragmentAdapter.setDatas(datas);
+                                swipeRefreshLayout.setLoading(false);
                             }
 
                             @Override
@@ -203,9 +211,9 @@ public class NewsUseFragment extends AbsFragment  {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), NewsFragmentActivity.class);
                 SimpleDateFormat format = new SimpleDateFormat("MM-dd-HH:mm");//将时间转换为正常显示
-                String publishTime = format.format(datas.get(position - 2).getPublishTime());
+                String publishTime = format.format(datas.get(position - 1).getPublishTime());
                 intent.putExtra("publishTime", publishTime + "");
-                intent.putExtra("postId", datas.get(position - 2).getFeedId());
+                intent.putExtra("postId", datas.get(position - 1).getFeedId());
                 startActivity(intent);
             }
         });

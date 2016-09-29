@@ -42,6 +42,7 @@ public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnCl
     private PopupWindow mTimePopWindow;
     private TextView mTimeTv;
     private ImageView mTimeImg;
+    private TextView mTitleTv;
     private String url = AllContantValues.ALLDISSCOVERRECENT;
 
 
@@ -60,6 +61,7 @@ public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnCl
         mTimeRL = byView(R.id.activity_discover_recent_time_relativelayout);
         mTimeTv = byView(R.id.activity_discover_recent_time_tv);
         mTimeImg = byView(R.id.activity_discover_recent_time_img);
+        mTitleTv = byView(R.id.activity_discover_title_tv);
         adapter = new RecentDiscoverActivityAdapter(getApplicationContext());
         listView.setAdapter(adapter);
 
@@ -68,6 +70,7 @@ public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnCl
 
     @Override
     protected void initDatas() {
+
         VolleyInstance.getInstance().startRequest(url, new VolleyReault() {
             @Override
             public void success(String resultStr) {
@@ -85,6 +88,7 @@ public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnCl
         mBackImg.setOnClickListener(this);
         mTypeRL.setOnClickListener(this);
         mTimeRL.setOnClickListener(this);
+        mTitleTv.setText("近期活动");
 
     }
 
@@ -189,7 +193,7 @@ public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnCl
         mNextTimePop.setOnClickListener(this);
 
 
-        mTimePopWindow.showAsDropDown(mTimeRL);
+        mTimePopWindow.showAsDropDown(mTimeRL);//使PopupWindow显示在指定空间的下方
         WindowManager.LayoutParams params = getWindow().getAttributes();
         params.alpha = 1f;
         getWindow().setAttributes(params);

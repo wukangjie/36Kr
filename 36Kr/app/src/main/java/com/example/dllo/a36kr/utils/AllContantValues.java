@@ -2,6 +2,7 @@ package com.example.dllo.a36kr.utils;
 
 /**
  * Created by dllo on 16/9/21.
+ *
  */
 public class AllContantValues {
     /**
@@ -12,7 +13,7 @@ public class AllContantValues {
     public static final String ALLNEWSURL = "http://rong.36kr.com/api/mobi/news?pageSize=20&columnId=all&pagingAction=up";
     public static final String EARLYNEWSURL = "http://rong.36kr.com/api/mobi/news?pageSize=20&columnId=67&pagingAction=up";
     public static final String BLATENEWSURL = "http://rong.36kr.com/api/mobi/news?pageSize=20&columnId=68&pagingAction=up";
-    public static final String BIGNEWSURL = "http://rong.36kr.com/api/mobi/news?pageSize=20&columnId=23&pagingAction=up";
+    public static final String BIGNEWSURL = "  http://rong.36kr.com/api/mobi/news?pageSize=20&columnId=23&pagingAction=up";
     public static final String CAPITALNEWSURL = "http://rong.36kr.com/api/mobi/news?pageSize=20&columnId=69&pagingAction=up";
     public static final String DEPTHNEWSURL = "http://rong.36kr.com/api/mobi/news?pageSize=20&columnId=70&pagingAction=up";
     public static final String RESEARCHNEWSURL = "http://rong.36kr.com/api/mobi/news?pageSize=20&columnId=71&pagingAction=up";

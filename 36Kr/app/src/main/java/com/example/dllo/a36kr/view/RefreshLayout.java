@@ -2,6 +2,7 @@ package com.example.dllo.a36kr.view;
 
 /**
  * Created by dllo on 16/9/28.
+ * 实现上拉加载,下拉刷新的方法
  */
 
 import android.content.Context;
@@ -129,7 +130,7 @@ public class RefreshLayout extends SwipeRefreshLayout {
     }
 
     /**
-     * 是否可以加载更多, 条件是到了最底部, listview不在加载中, 且为上拉操作.
+     * 是否可以加载更多, 条件是到了最底部, listView不在加载中, 且为上拉操作.
      *
      * @return
      */
@@ -143,7 +144,7 @@ public class RefreshLayout extends SwipeRefreshLayout {
     private boolean isBottom() {
 
         if (mListView != null && mListView.getAdapter() != null) {
-            return mListView.getLastVisiblePosition() == (mListView.getAdapter().getCount() - 1);
+            return mListView.getLastVisiblePosition() == (mListView.getAdapter().getCount() -1);
         }
         return false;
     }
@@ -194,7 +195,7 @@ public class RefreshLayout extends SwipeRefreshLayout {
 //    public void onScrollStateChanged(AbsListView view, int scrollState) {
 //
 //    }
-
+//
 //    @Override
 //    public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
 //                         int totalItemCount) {

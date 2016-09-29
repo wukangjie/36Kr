@@ -17,8 +17,8 @@ import android.widget.Toast;
 import java.util.List;
 
 /**
- * Created by idisfkj on 16/8/8.
- * Email : idisfkj@qq.com.
+ * 轮播图的适配器
+ *
  */
 public class LoopViewAdapter extends PagerAdapter {
     private List<LoopViewEntity> list;
