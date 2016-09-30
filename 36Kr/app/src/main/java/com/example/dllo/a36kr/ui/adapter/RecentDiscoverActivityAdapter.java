@@ -17,6 +17,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/27.
+ * 近期活动详情页的适配器
  */
 public class RecentDiscoverActivityAdapter extends BaseAdapter {
     private Context context;

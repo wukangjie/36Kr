@@ -5,6 +5,10 @@ import android.os.Bundle;
 
 import com.example.dllo.a36kr.R;
 
+/**
+ * 创业公司详情页
+ */
+
 public class DiscoverResearchActivity extends AppCompatActivity {
 
     @Override

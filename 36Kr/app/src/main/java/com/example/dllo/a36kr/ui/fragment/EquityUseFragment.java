@@ -30,9 +30,9 @@ public class EquityUseFragment extends AbsFragment {
     private String strLoad;//拼接后的网址
     private int page = 2;//网址页数
 
-    public static EquityUseFragment newInstance(String str){
+    public static EquityUseFragment newInstance(String str) {
         Bundle args = new Bundle();
-        args.putString("url",str);
+        args.putString("url", str);
         EquityUseFragment equityUseFragment = new EquityUseFragment();
         equityUseFragment.setArguments(args);
         return equityUseFragment;
@@ -57,10 +57,9 @@ public class EquityUseFragment extends AbsFragment {
     protected void initDatas() {
 
 
-
         Bundle bundle = getArguments();
         string = bundle.getString("url");
-
+        strLoad = string.replace("1", page + "");
         /**
          * 设置下拉刷新
          */
@@ -78,8 +77,8 @@ public class EquityUseFragment extends AbsFragment {
                             @Override
                             public void success(String resultStr) {
                                 Gson gson = new Gson();
-                                EquityFragmentBean equityFragmentBean = gson.fromJson(resultStr,EquityFragmentBean.class);
-                                        datas = equityFragmentBean.getData().getData();
+                                EquityFragmentBean equityFragmentBean = gson.fromJson(resultStr, EquityFragmentBean.class);
+                                datas = equityFragmentBean.getData().getData();
                                 adapter.setDatas(datas);
                             }
 
@@ -101,19 +100,18 @@ public class EquityUseFragment extends AbsFragment {
 
                     @Override
                     public void run() {
-                        strLoad = string.replace("1",page +"");
-                        VolleyInstance.getInstance().startRequest(strLoad, new VolleyReault() {
 
+                        VolleyInstance.getInstance().startRequest(strLoad, new VolleyReault() {
 
 
                             @Override
                             public void success(String resultStr) {
                                 Gson gson = new Gson();
-                                EquityFragmentBean equityFragmentBean = gson.fromJson(resultStr,EquityFragmentBean.class);
+                                EquityFragmentBean equityFragmentBean = gson.fromJson(resultStr, EquityFragmentBean.class);
                                 datas1 = equityFragmentBean.getData().getData();
                                 datas.addAll(datas1);
                                 adapter.setDatas(datas);
-                                page  += 1;
+                                strLoad.replace(page + "", page + 1 + "");
                                 swipeRefreshLayout.setLoading(false);
                             }
 
@@ -136,7 +134,7 @@ public class EquityUseFragment extends AbsFragment {
                 //gson从json数据解析
                 //参数一:哪个json数据
                 //参数二:解析到那个实体类
-                EquityFragmentBean myBean = gson.fromJson(resultStr,EquityFragmentBean.class);
+                EquityFragmentBean myBean = gson.fromJson(resultStr, EquityFragmentBean.class);
                 //获取解析数据的集合
                 datas = myBean.getData().getData();
                 adapter.setDatas(datas);

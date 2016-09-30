@@ -2,6 +2,8 @@ package com.example.dllo.a36kr.ui.activity;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
@@ -18,12 +20,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dllo.a36kr.R;
+import com.example.dllo.a36kr.model.bean.EquityFragmentBean;
 import com.example.dllo.a36kr.model.bean.RecentDiscoverActivityBean;
 import com.example.dllo.a36kr.model.net.VolleyInstance;
 import com.example.dllo.a36kr.model.net.VolleyReault;
 import com.example.dllo.a36kr.ui.adapter.RecentDiscoverActivityAdapter;
 import com.example.dllo.a36kr.ui.fragment.DiscoverFragment;
 import com.example.dllo.a36kr.utils.AllContantValues;
+import com.example.dllo.a36kr.view.RefreshLayout;
 import com.google.gson.Gson;
 
 import org.w3c.dom.Text;
@@ -32,6 +36,7 @@ import java.util.List;
 
 public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnClickListener, PopupWindow.OnDismissListener {
     private RecentDiscoverActivityAdapter adapter;
+    private RefreshLayout swipeRefreshLayout;
     private ListView listView;
     private ImageView mBackImg;//返回图标的点击事件
     private RelativeLayout mTypeRL;//设置活动类型的点击事件
@@ -43,7 +48,11 @@ public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnCl
     private TextView mTimeTv;
     private ImageView mTimeImg;
     private TextView mTitleTv;
-    private String url = AllContantValues.ALLDISSCOVERRECENT;
+    private String url = AllContantValues.ALLDISSCOVERRECENT;//网址
+    private String strLoad;//拼接后的网址
+    private int page = 2;//拼接的页数
+    private List<RecentDiscoverActivityBean.DataBean.DataBean1> data;
+    private List<RecentDiscoverActivityBean.DataBean.DataBean1> data1;
 
 
     @Override
@@ -62,6 +71,7 @@ public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnCl
         mTimeTv = byView(R.id.activity_discover_recent_time_tv);
         mTimeImg = byView(R.id.activity_discover_recent_time_img);
         mTitleTv = byView(R.id.activity_discover_title_tv);
+        swipeRefreshLayout = byView(R.id.activity_discover_recent_rootview);
         adapter = new RecentDiscoverActivityAdapter(getApplicationContext());
         listView.setAdapter(adapter);
 
@@ -70,13 +80,80 @@ public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnCl
 
     @Override
     protected void initDatas() {
+        strLoad = url.replace("1", page + "");
+
+        /**
+         * 设置下拉刷新
+         */
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light,
+                android.R.color.holo_red_light, android.R.color.holo_orange_light,
+                android.R.color.holo_green_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        VolleyInstance.getInstance().startRequest(url, new VolleyReault() {
+                            @Override
+                            public void success(String resultStr) {
+                                Gson gson = new Gson();
+                                RecentDiscoverActivityBean bean = gson.fromJson(resultStr, RecentDiscoverActivityBean.class);
+                                data = bean.getData().getData();
+                                adapter.setDatas(data);
+                            }
+
+                            @Override
+                            public void failure() {
+
+                            }
+                        });
+                        //停止刷新动画
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
+        swipeRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
+            @Override
+            public void onLoad() {
+                new Handler().postDelayed(new Runnable() {
+
+                    @Override
+                    public void run() {
+
+                        VolleyInstance.getInstance().startRequest(strLoad, new VolleyReault() {
+
+
+                            @Override
+                            public void success(String resultStr) {
+                                Gson gson = new Gson();
+                                RecentDiscoverActivityBean bean = gson.fromJson(resultStr, RecentDiscoverActivityBean.class);
+                                data1 = bean.getData().getData();
+                                adapter.setDatas(data);
+                                strLoad.replace(page + "", page + 1 + "");
+                                swipeRefreshLayout.setLoading(false);
+                            }
+
+                            @Override
+                            public void failure() {
+
+                            }
+                        });
+                        //停止刷新动画
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                }, 2000);
+            }
+        });
 
         VolleyInstance.getInstance().startRequest(url, new VolleyReault() {
             @Override
             public void success(String resultStr) {
                 Gson gson = new Gson();
                 RecentDiscoverActivityBean bean = gson.fromJson(resultStr, RecentDiscoverActivityBean.class);
-                List<RecentDiscoverActivityBean.DataBean.DataBean1> data = bean.getData().getData();
+                data = bean.getData().getData();
                 adapter.setDatas(data);
             }
 
@@ -183,10 +260,10 @@ public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnCl
         mTimePopWindow = new PopupWindow(contentView,
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         mTimePopWindow.setContentView(contentView);
-        TextView mAllTimePop = (TextView)contentView.findViewById(R.id.activity_time_pop_all);
-        TextView mLateTimePop = (TextView)contentView.findViewById(R.id.activity_time_pop_late);
-        TextView mThisTimePop = (TextView)contentView.findViewById(R.id.activity_time_pop_thisweek);
-        TextView mNextTimePop = (TextView)contentView.findViewById(R.id.activity_time_pop_nextweek);
+        TextView mAllTimePop = (TextView) contentView.findViewById(R.id.activity_time_pop_all);
+        TextView mLateTimePop = (TextView) contentView.findViewById(R.id.activity_time_pop_late);
+        TextView mThisTimePop = (TextView) contentView.findViewById(R.id.activity_time_pop_thisweek);
+        TextView mNextTimePop = (TextView) contentView.findViewById(R.id.activity_time_pop_nextweek);
         mAllTimePop.setOnClickListener(this);
         mLateTimePop.setOnClickListener(this);
         mThisTimePop.setOnClickListener(this);
@@ -211,7 +288,6 @@ public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnCl
     }
 
 
-
     /**
      * 关闭弹窗
      */
@@ -231,10 +307,10 @@ public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnCl
         mTypePopWindow = new PopupWindow(contentView,
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         mTypePopWindow.setContentView(contentView);
-        TextView mAllTypePop = (TextView)contentView.findViewById(R.id.activity_type_pop_all);
+        TextView mAllTypePop = (TextView) contentView.findViewById(R.id.activity_type_pop_all);
         TextView mDayTypePop = (TextView) contentView.findViewById(R.id.activity_type_pop_day);
         TextView mSpaceTypePop = (TextView) contentView.findViewById(R.id.activity_type_pop_space);
-        TextView mEquityTypePop = (TextView)contentView. findViewById(R.id.activity_type_pop_equity);
+        TextView mEquityTypePop = (TextView) contentView.findViewById(R.id.activity_type_pop_equity);
         TextView mServiceTypePop = (TextView) contentView.findViewById(R.id.activity_type_pop_service);
         TextView mFinancingTypePop = (TextView) contentView.findViewById(R.id.activity_type_pop_financing);
         mAllTypePop.setOnClickListener(this);
@@ -260,7 +336,6 @@ public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnCl
         });
 
     }
-
 
 
     /**

@@ -30,6 +30,7 @@ public class MessageFragment extends AbsFragment {
     protected void initDatas() {
         EventBus.getDefault().register(this);
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getData(IsLoginBean bean){
         if (!bean.isData()){

@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by dllo on 16/9/27.
+ * 发现近期项目详情的实体类
  */
 public class RecentDiscoverActivityBean {
 

@@ -100,6 +100,8 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
          * TabLayout绑定ViewPager
          */
         mainTl.setupWithViewPager(mainVp);
+        //mainVp.setOffscreenPageLimit(5);
+        mainTl.setTabMode(TabLayout.MODE_FIXED);
         mainTl.getTabAt(0).setText(R.string.tab_news_name).setIcon(R.drawable.selector_news_tab);
         mainTl.getTabAt(1).setText(R.string.tab_equity_name).setIcon(R.drawable.selector_equity_tab);
         mainTl.getTabAt(2).setText(R.string.tab_discover_name).setIcon(R.drawable.selector_discover_tab);

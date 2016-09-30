@@ -19,6 +19,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by dllo on 16/9/27.
+ * 寻找投资人详情适配器
  */
 public class InvestorDiscoverActivityAdapter extends BaseAdapter {
 
@@ -79,7 +80,6 @@ public class InvestorDiscoverActivityAdapter extends BaseAdapter {
                 }
                 holder.mStageTv.setText(investPhases + "");
             }
-//            holder.mStageTv.setText((CharSequence) bean.getInvestPhases());
             Picasso.with(context).load(bean.getUser().getAvatar()).into(holder.mTitleImg);
         }
 

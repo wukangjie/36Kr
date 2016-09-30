@@ -63,10 +63,17 @@
         </RelativeLayout>
 
     </LinearLayout>
+    <com.example.dllo.a36kr.view.RefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/activity_discover_recent_rootview"
+        >
     <ListView
         android:id="@+id/activity_discover_recent_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    </com.example.dllo.a36kr.view.RefreshLayout>
 
 
 </LinearLayout>

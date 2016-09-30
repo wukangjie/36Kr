@@ -17,11 +17,15 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
+/**
+ * 寻找投资人的详情界面
+ */
+
 public class DiscoverInvestorActivity extends AbsBaseActivity implements View.OnClickListener {
     private ListView listView;
     private InvestorDiscoverActivityAdapter adapter;
-    private ImageView mBackImg;
-    private TextView mTitleTv;
+    private ImageView mBackImg;//返回图标
+    private TextView mTitleTv;//标题名字
 
     @Override
     protected int setLayout() {
@@ -40,6 +44,9 @@ public class DiscoverInvestorActivity extends AbsBaseActivity implements View.On
 
     @Override
     protected void initDatas() {
+        /**
+         * 请求数据
+         */
         VolleyInstance.getInstance().startRequest(AllContantValues.DISSCOVERINVESTOR, new VolleyReault() {
             @Override
             public void success(String resultStr) {
@@ -55,7 +62,7 @@ public class DiscoverInvestorActivity extends AbsBaseActivity implements View.On
             }
         });
         mBackImg.setOnClickListener(this);
-        mTitleTv.setText("寻找投资人");
+        mTitleTv.setText("寻找投资人");//改变标题名字
     }
 
     @Override
