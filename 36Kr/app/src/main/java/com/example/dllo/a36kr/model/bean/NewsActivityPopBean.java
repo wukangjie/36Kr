@@ -14,6 +14,24 @@ public class NewsActivityPopBean {
 
     private DataBean data;
     private String msg;
+    private String totleTv;
+    private String viewTv;
+
+    public String getTotleTv() {
+        return totleTv;
+    }
+
+    public void setTotleTv(String totleTv) {
+        this.totleTv = totleTv;
+    }
+
+    public String getViewTv() {
+        return viewTv;
+    }
+
+    public void setViewTv(String viewTv) {
+        this.viewTv = viewTv;
+    }
 
     public int getCode() {
         return code;

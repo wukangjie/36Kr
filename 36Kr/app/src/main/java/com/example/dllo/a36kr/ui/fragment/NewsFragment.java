@@ -1,6 +1,7 @@
 package com.example.dllo.a36kr.ui.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.dllo.a36kr.R;
 import com.example.dllo.a36kr.ui.activity.ItoContralActivity;
+import com.example.dllo.a36kr.ui.activity.NewsSearchActivity;
 import com.example.dllo.a36kr.utils.AllContantValues;
 
 
@@ -16,10 +18,11 @@ import com.example.dllo.a36kr.utils.AllContantValues;
  * Created by dllo on 16/9/9.
  * 新闻Fragment
  */
-public class NewsFragment extends AbsFragment {
+public class NewsFragment extends AbsFragment implements View.OnClickListener {
     private ImageView menuIv;
     private TextView titleTv;
     private ItoContralActivity itoContralActivity;
+    private ImageView searchImg;
 
     @Override
     public void onAttach(Context context) {
@@ -49,6 +52,7 @@ public class NewsFragment extends AbsFragment {
     protected void initViews() {
         menuIv = byView(R.id.fragment_news_navi_img);
         titleTv = byView(R.id.fragment_news_title_tv);
+        searchImg = byView(R.id.fragment_news_search_img);
     }
 
 
@@ -69,6 +73,7 @@ public class NewsFragment extends AbsFragment {
                 itoContralActivity.toContralActivity(true);//接口回调传值
             }
         });
+        searchImg.setOnClickListener(this);
 
 
 
@@ -96,5 +101,12 @@ public class NewsFragment extends AbsFragment {
     }
 
 
-
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.fragment_news_search_img:
+                startActivity(new Intent(getActivity(), NewsSearchActivity.class));
+                break;
+        }
+    }
 }

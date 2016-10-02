@@ -52,8 +52,8 @@ public class LoopViewAdapter extends PagerAdapter {
         ImageView imageView = (ImageView) view.findViewById(R.id.loop_image);
         Glide.with(context).load(list.get(position).getImageUrl())
                 .centerCrop()
-//                .placeholder(R.mipmap.ic_launcher)
-//                .error(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
                 .into(imageView);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

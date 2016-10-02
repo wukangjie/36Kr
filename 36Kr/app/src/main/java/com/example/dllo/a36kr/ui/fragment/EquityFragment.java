@@ -114,7 +114,7 @@ public class EquityFragment extends AbsFragment implements View.OnClickListener 
                 @Override
                 public void onDismiss() {
                     RotateAnimation ra = new RotateAnimation(-45,45, Animation.RELATIVE_TO_SELF,0.5F,Animation.RELATIVE_TO_SELF,0.5F);
-                    ra.setDuration(500);
+                    ra.setDuration(200);
                     ra.setRepeatCount(3);
                     mGiftImg.startAnimation(ra);
                 }

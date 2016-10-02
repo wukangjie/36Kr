@@ -18,6 +18,7 @@ import com.example.dllo.a36kr.model.bean.CarouselBean;
 import com.example.dllo.a36kr.model.net.VolleyInstance;
 import com.example.dllo.a36kr.model.net.VolleyReault;
 import com.example.dllo.a36kr.ui.activity.DiscoverCreateActivity;
+import com.example.dllo.a36kr.ui.activity.DiscoverInstituteActivity;
 import com.example.dllo.a36kr.ui.activity.DiscoverInvestorActivity;
 import com.example.dllo.a36kr.ui.activity.DiscoverRecentActivity;
 import com.example.dllo.a36kr.ui.activity.ItoContralActivity;
@@ -42,6 +43,8 @@ public class DiscoverFragment extends AbsFragment implements View.OnClickListene
     private LinearLayout mCreate;//创业公司
     private LinearLayout mRecent;//近期活动
     private RelativeLayout mInvest;//寻找投资人
+    private LinearLayout mInsitute36;//36氪研究院
+
 
     @Override
     protected int setLayout() {
@@ -54,6 +57,7 @@ public class DiscoverFragment extends AbsFragment implements View.OnClickListene
         mCreate = byView(R.id.fragment_discover_create_linearlayout);
         mRecent = byView(R.id.fragment_discover_recent_linearlayout);
         mInvest = byView(R.id.fragment_discover_investor_relativelayout);
+        mInsitute36 = byView(R.id.fragment_discover_36investor_Linearlayout);
 
     }
 
@@ -99,7 +103,7 @@ public class DiscoverFragment extends AbsFragment implements View.OnClickListene
         mCreate.setOnClickListener(this);
         mRecent.setOnClickListener(this);
         mInvest.setOnClickListener(this);
-
+        mInsitute36.setOnClickListener(this);
     }
 
 
@@ -114,6 +118,9 @@ public class DiscoverFragment extends AbsFragment implements View.OnClickListene
                 break;
             case R.id.fragment_discover_investor_relativelayout:
                 startActivity(new Intent(getActivity(), DiscoverInvestorActivity.class));
+                break;
+            case R.id.fragment_discover_36investor_Linearlayout:
+                startActivity(new Intent(getActivity(), DiscoverInstituteActivity.class));
                 break;
         }
     }

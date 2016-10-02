@@ -36,7 +36,6 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
-
 /**
  * Created by dllo on 16/9/13.
  * NewsFragment的详情页
@@ -62,6 +61,8 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
     private View mView;//标题栏的下划线
     private NewsActivityPopAdapter newsActivityPopAdapter;
     private ListView listView;
+    private TextView totleTv;
+    private TextView viewTv;
 
 
     @Override
@@ -79,8 +80,9 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
         timeTv = byView(R.id.activity_news_fragment_content_time);
         upDownImg = byView(R.id.activity_news_fragment_title_updown);
         mView = byView(R.id.activity_news_fragment_view);
-        newsActivityPopAdapter = new NewsActivityPopAdapter(getApplicationContext());
 
+
+        newsActivityPopAdapter = new NewsActivityPopAdapter(getApplicationContext());
 
 
     }
@@ -155,7 +157,7 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.activity_news_fragment_title_updown:
                 showPopupWindow();
                 upDownImg.setImageResource(R.mipmap.icon_up);
@@ -167,6 +169,8 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
 
     private void showPopupWindow() {
         View contentView = LayoutInflater.from(this).inflate(R.layout.activity_news_pop_details, null);
+        viewTv = (TextView) contentView.findViewById(R.id.activity_news_pop_details_view);
+        totleTv = (TextView) contentView.findViewById(R.id.activity_news_pop_details_total);
         mPopupWindow = new PopupWindow(contentView,
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
         mPopupWindow.setContentView(contentView);
@@ -177,9 +181,10 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
             @Override
             public void success(String resultStr) {
                 Gson gson = new Gson();
-                NewsActivityPopBean bean = gson.fromJson(resultStr,NewsActivityPopBean.class);
+                NewsActivityPopBean bean = gson.fromJson(resultStr, NewsActivityPopBean.class);
                 List<NewsActivityPopBean.DataBean.LatestArticleBean> data = bean.getData().getLatestArticle();
                 newsActivityPopAdapter.setDatas(data);
+
             }
 
             @Override

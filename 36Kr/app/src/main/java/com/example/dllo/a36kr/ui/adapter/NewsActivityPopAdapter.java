@@ -25,6 +25,7 @@ public class NewsActivityPopAdapter extends BaseAdapter {
         this.context = context;
     }
 
+
     public void setDatas(List<NewsActivityPopBean.DataBean.LatestArticleBean> datas) {
         this.datas = datas;
         notifyDataSetChanged();
@@ -57,6 +58,7 @@ public class NewsActivityPopAdapter extends BaseAdapter {
             holder = (NewsActivityPopHolder) convertView.getTag();
         }
         NewsActivityPopBean.DataBean.LatestArticleBean bean = datas.get(position);
+
         if (bean != null){
             holder.mPopTv.setText(bean.getSummary());
             Picasso.with(context).load(bean.getFeatureImg()).into(holder.mPopImg);

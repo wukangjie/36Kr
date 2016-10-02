@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        >
+        <ImageView
+            android:id="@+id/activity_news_search_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/nav_icon_search"
+            android:layout_margin="10dp"
+            />
+
+        <TextView
+            android:id="@+id/activity_news_search_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="取消"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            android:textColor="@color/colorTabBlue"
+            android:layout_alignParentRight="true"
+            />
+        <ImageView
+            android:id="@+id/activity_news_search_pwd_clear"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:clickable="true"
+            android:layout_toLeftOf="@id/activity_news_search_cancel"
+            android:src="@mipmap/login_icon_delete"
+            android:visibility="visible" />
+        <EditText
+            android:id="@+id/activity_news_search_et"
+            android:layout_toRightOf="@id/activity_news_search_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="搜索新闻/用户/公司"
+            android:layout_toLeftOf="@id/activity_news_search_pwd_clear"
+            android:textSize="20sp"
+            android:singleLine="true"
+            />
+
+
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/search_ph_search"
+        android:layout_centerInParent="true"
+        />
+
+
+</RelativeLayout>
