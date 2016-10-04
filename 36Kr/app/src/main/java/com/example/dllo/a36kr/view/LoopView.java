@@ -1,11 +1,13 @@
 package com.example.dllo.a36kr.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dllo.a36kr.R;
+import com.example.dllo.a36kr.ui.activity.LoopViewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,7 +101,7 @@ public class LoopView extends FrameLayout implements ViewPager.OnPageChangeListe
         adapter.setOnItemClickListener(new LoopViewAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Toast.makeText(getContext(), "点击了" + position + "行", Toast.LENGTH_SHORT).show();
+                Log.d("LoopView", "position:" + position);
             }
         });
         viewPager.setAdapter(adapter);
@@ -196,4 +199,5 @@ public class LoopView extends FrameLayout implements ViewPager.OnPageChangeListe
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
     }
+
 }

@@ -14,6 +14,7 @@ import com.example.dllo.a36kr.model.bean.CarouselBean;
 import com.example.dllo.a36kr.model.bean.NewFragmentBean;
 import com.example.dllo.a36kr.model.net.VolleyInstance;
 import com.example.dllo.a36kr.model.net.VolleyReault;
+import com.example.dllo.a36kr.ui.activity.LoopViewActivity;
 import com.example.dllo.a36kr.ui.activity.NewsFragmentActivity;
 import com.example.dllo.a36kr.ui.adapter.NewsFragmentAdapter;
 import com.example.dllo.a36kr.utils.AllContantValues;

@@ -3,6 +3,7 @@ package com.example.dllo.a36kr.ui.activity;
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -13,10 +14,12 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dllo.a36kr.R;
 import com.example.dllo.a36kr.model.bean.InvestorDiscoverActivityBean;
@@ -40,7 +43,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by dllo on 16/9/13.
  * NewsFragment的详情页
  */
-public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClickListener, PopupWindow.OnDismissListener {
+public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClickListener, PopupWindow.OnDismissListener,View.OnTouchListener,GestureDetector.OnGestureListener {
 
 
     private String postId;//定义从NewsFragment传来的ID
@@ -63,6 +66,16 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
     private ListView listView;
     private TextView totleTv;
     private TextView viewTv;
+    private ScrollView mScrollView;
+    private ImageView backImg;
+
+
+    private static final int FLING_MIN_DISTANCE = 50;
+    private static final int FLING_MIN_VELOCITY = 0;
+    GestureDetector mGestureDetector = null;
+    private LinearLayout footLinearLayout;
+
+
 
 
     @Override
@@ -80,7 +93,9 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
         timeTv = byView(R.id.activity_news_fragment_content_time);
         upDownImg = byView(R.id.activity_news_fragment_title_updown);
         mView = byView(R.id.activity_news_fragment_view);
-
+        footLinearLayout = byView(R.id.activity_foot_linearlayout);
+        mScrollView = byView(R.id.activity_scrollview);
+        backImg = byView(R.id.activity_foot_back_img);
 
         newsActivityPopAdapter = new NewsActivityPopAdapter(getApplicationContext());
 
@@ -153,6 +168,20 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
         });
 
         upDownImg.setOnClickListener(this);
+        backImg.setOnClickListener(this);
+
+        /**
+         * 手势监听
+         */
+        mGestureDetector = new GestureDetector(getApplicationContext(),this);
+        mScrollView.setOnTouchListener(this);
+        //下面这几行一定要加上否则就只能识别onDown，onShowPress，和onLongPress
+        mScrollView.setFocusable(true);
+        mScrollView.setClickable(true);
+        mScrollView.setLongClickable(true);
+
+
+
     }
 
     @Override
@@ -162,7 +191,9 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
                 showPopupWindow();
                 upDownImg.setImageResource(R.mipmap.icon_up);
                 mPopupWindow.setOnDismissListener(this);
-
+                break;
+            case R.id.activity_foot_back_img:
+                finish();
                 break;
         }
     }
@@ -221,5 +252,60 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
     @Override
     public void onDismiss() {
         upDownImg.setImageResource(R.mipmap.icon_down);
+    }
+
+
+
+
+
+
+/****************************手势监听方法***************************/
+    @Override
+    public boolean onDown(MotionEvent e) {
+        Log.d("onDown", "onDown");
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+        Log.e("onShowPress", "onShowPress");
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        Log.e("onSingleTapUp", "onSingleTapUp");
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+
+        Log.e("onScroll", "onScroll");
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+        Log.e("onLongPress", "onLongPress");
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        if (e1.getY()-e2.getY() > FLING_MIN_DISTANCE
+                && Math.abs(velocityY) > FLING_MIN_VELOCITY) {
+            // Fling left
+            footLinearLayout.setVisibility(View.GONE);
+        } else if (e2.getY()-e1.getY() > FLING_MIN_DISTANCE
+                && Math.abs(velocityY) > FLING_MIN_VELOCITY) {
+            // Fling right
+            footLinearLayout.setVisibility(View.VISIBLE);
+        }
+        Log.e("onFling", "onFling");
+        return false;
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return mGestureDetector.onTouchEvent(event);
     }
 }
