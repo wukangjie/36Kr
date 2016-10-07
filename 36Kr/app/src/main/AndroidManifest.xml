@@ -26,7 +26,8 @@
         <activity android:name=".ui.activity.DiscoverInvestorActivity" />
         <activity android:name=".ui.activity.NewsSearchActivity" />
         <activity android:name=".ui.activity.DiscoverInstituteActivity" />
-        <activity android:name=".ui.activity.LoopViewActivity"></activity>
+        <activity android:name=".ui.activity.LoopViewActivity" />
+        <activity android:name=".ui.activity.MineSettingActivity"></activity>
     </application>
 
 </manifest>

@@ -7,7 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.dllo.a36kr.R;
 import com.example.dllo.a36kr.model.bean.NewFragmentBean;
@@ -21,10 +23,13 @@ import com.google.gson.Gson;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-public class DiscoverInstituteActivity extends AbsBaseActivity {
+
+public class DiscoverInstituteActivity extends AbsBaseActivity implements View.OnClickListener {
     private RefreshLayout swipeRefreshLayout;
     private ListView listView;
     private NewsFragmentAdapter newsFragmentAdapter;
+    private TextView titleTv;
+    private ImageView backImg;
     private String string;//网址
     private String strLoad;//拼接后的网址
     private int pageSize = 40;//网址的条数
@@ -42,11 +47,17 @@ public class DiscoverInstituteActivity extends AbsBaseActivity {
     protected void initViews() {
         listView = byView(R.id.activity_discover_institute_listview);
         swipeRefreshLayout = byView(R.id.activity_discover_institute_rootview);
+        titleTv = byView(R.id.activity_discover_title_tv);
+        backImg = byView(R.id.activity_discover_back_img);
 
     }
 
     @Override
     protected void initDatas() {
+        titleTv.setText("36氪研究院");
+
+        backImg.setOnClickListener(this);
+
         string = AllContantValues.RESEARCHNEWSURL;
         strLoad = string.replace("20",pageSize+"");
         newsFragmentAdapter = new NewsFragmentAdapter(getBaseContext());
@@ -154,4 +165,12 @@ public class DiscoverInstituteActivity extends AbsBaseActivity {
 
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.activity_discover_back_img:
+                finish();
+                break;
+        }
+    }
 }

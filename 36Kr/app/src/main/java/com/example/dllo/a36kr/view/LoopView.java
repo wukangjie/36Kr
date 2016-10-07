@@ -98,16 +98,17 @@ public class LoopView extends FrameLayout implements ViewPager.OnPageChangeListe
             linearLayout.addView(imageView);
         }
         adapter = new LoopViewAdapter(getContext(), list);
-        adapter.setOnItemClickListener(new LoopViewAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                Log.d("LoopView", "position:" + position);
-            }
-        });
+//        adapter.setOnItemClickListener(new LoopViewAdapter.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(int position) {
+//                Log.d("LoopView", "position:" + position);
+//            }
+//        });
         viewPager.setAdapter(adapter);
         linearLayout.getChildAt(0).setSelected(true);
         descript.setText(list.get(0).getDescript());
         startLoop();
+
     }
 
     @Override

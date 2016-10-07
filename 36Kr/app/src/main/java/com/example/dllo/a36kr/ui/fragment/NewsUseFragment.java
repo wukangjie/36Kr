@@ -184,6 +184,13 @@ public class NewsUseFragment extends AbsFragment  {
 
                 }
             });
+//            newsLoopView.setOnItemClickListener(new LoopView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(int position) {
+//                    startActivity(new Intent(getActivity(),LoopViewActivity.class));
+//
+//                }
+//            });
         }
         /**
          * 解析NewsFragment的网络,如全部,早期项目....
