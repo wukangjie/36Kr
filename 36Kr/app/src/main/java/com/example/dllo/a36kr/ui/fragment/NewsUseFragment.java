@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +12,7 @@ import android.widget.ListView;
 
 import com.example.dllo.a36kr.R;
 import com.example.dllo.a36kr.model.bean.CarouselBean;
+import com.example.dllo.a36kr.model.bean.CollectBean;
 import com.example.dllo.a36kr.model.bean.NewFragmentBean;
 import com.example.dllo.a36kr.model.net.VolleyInstance;
 import com.example.dllo.a36kr.model.net.VolleyReault;
@@ -43,6 +45,7 @@ public class NewsUseFragment extends AbsFragment  {
     private int pageSize = 40;//网址的条数
     private List<NewFragmentBean.DataBean.DataBean1> datas1;
     private List<NewFragmentBean.DataBean.DataBean1> datas;
+    private List<CollectBean> dataCollect;
 
 
     /**
@@ -88,6 +91,7 @@ public class NewsUseFragment extends AbsFragment  {
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light,
                 android.R.color.holo_red_light, android.R.color.holo_orange_light,
                 android.R.color.holo_green_light);
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -115,6 +119,10 @@ public class NewsUseFragment extends AbsFragment  {
                 }, 2000);
             }
         });
+
+        /**
+         * 上啦加载
+         */
         swipeRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
@@ -126,13 +134,17 @@ public class NewsUseFragment extends AbsFragment  {
 
                             @Override
                             public void success(String resultStr) {
-                                strLoad = strLoad.replace(pageSize+"",pageSize + 20 +"");
-
+                                strLoad = strLoad.replace(pageSize+"",(pageSize + 20)+"");
+                                Log.d("zzz", strLoad);
                                 Gson gson = new Gson();
                                 NewFragmentBean newFragmentBean = gson.fromJson(resultStr, NewFragmentBean.class);
                                 datas1 = newFragmentBean.getData().getData();
-                                datas.addAll(datas1);
-//                                newsFragmentAdapter.setDatas(datas);
+                                datas1 = datas1.subList(datas1.size()-20,datas1.size() - 1);
+                                if (datas1.isEmpty()){
+
+                                }else {
+                                    datas.addAll(datas1);
+                                }
                                 swipeRefreshLayout.setLoading(false);
                             }
 
@@ -184,13 +196,13 @@ public class NewsUseFragment extends AbsFragment  {
 
                 }
             });
-//            newsLoopView.setOnItemClickListener(new LoopView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(int position) {
-//                    startActivity(new Intent(getActivity(),LoopViewActivity.class));
-//
-//                }
-//            });
+            newsLoopView.setOnItemClickListener(new LoopView.OnItemClickListener() {
+                @Override
+                public void onItemClick(int position) {
+                    startActivity(new Intent(getActivity(),LoopViewActivity.class));
+
+                }
+            });
         }
         /**
          * 解析NewsFragment的网络,如全部,早期项目....
@@ -222,6 +234,7 @@ public class NewsUseFragment extends AbsFragment  {
                 String publishTime = format.format(datas.get(position - 1).getPublishTime());
                 intent.putExtra("publishTime", publishTime + "");
                 intent.putExtra("postId", datas.get(position - 1).getFeedId());
+                intent.putExtra("typeTv",datas.get(position - 1).getColumnName());
                 startActivity(intent);
             }
         });

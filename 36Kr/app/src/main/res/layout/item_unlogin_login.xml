@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:saveEnabled="false"
             android:maxLength="48"
+            android:password="true"
             android:hint="密码"/>
     </android.support.design.widget.TextInputLayout>
     <TextView

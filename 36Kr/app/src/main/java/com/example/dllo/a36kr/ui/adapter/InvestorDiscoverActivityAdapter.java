@@ -14,6 +14,7 @@ import com.example.dllo.a36kr.model.bean.InvestorDiscoverActivityBean;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,6 +34,7 @@ public class InvestorDiscoverActivityAdapter extends BaseAdapter {
 
     public void setDatas(List<InvestorDiscoverActivityBean.DataBean.DataBean1> datas) {
         this.datas = datas;
+
         notifyDataSetChanged();
     }
 

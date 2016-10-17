@@ -1,5 +1,7 @@
 package com.example.dllo.a36kr.ui.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -16,6 +18,9 @@ import org.greenrobot.eventbus.ThreadMode;
  * 消息Fragment
  */
 public class MessageFragment extends AbsFragment {
+
+
+
     @Override
     protected int setLayout() {
         return R.layout.fragment_message;
@@ -28,18 +33,9 @@ public class MessageFragment extends AbsFragment {
 
     @Override
     protected void initDatas() {
-        EventBus.getDefault().register(this);
+
+
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getData(IsLoginBean bean){
-        if (!bean.isData()){
-            startActivity(new Intent(getActivity(), UnLoginActivity.class));
-        }
-    }
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
+
 }

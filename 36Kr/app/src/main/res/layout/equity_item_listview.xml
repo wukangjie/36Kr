@@ -51,6 +51,7 @@
             android:background="@drawable/rectangle_bg">
 
             <TextView
+                android:id="@+id/equity_item_focus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"

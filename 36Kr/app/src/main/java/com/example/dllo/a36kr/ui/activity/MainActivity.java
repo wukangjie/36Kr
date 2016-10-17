@@ -1,7 +1,10 @@
 package com.example.dllo.a36kr.ui.activity;
 
 
-
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -11,6 +14,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -43,6 +48,8 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
     private LinearLayout researchLl;//研究
     private ImageView backImg;//返回图标
     private NewsFragment newsFragment;//新闻碎片
+    private long tempTime = 0;//初始值，记录上一次按下返回键的时间点
+    private boolean isLogin;
 
 
 
@@ -68,6 +75,28 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
         lineatLayout = (LinearLayout) findViewById(R.id.main_drawer_ll);
         mainDrawerLayout = (DrawerLayout) findViewById(R.id.main_drawer_layout);
 
+
+    }
+//    public class MyReceiver extends BroadcastReceiver {
+//
+//        @Override
+//        public void onReceive(Context context, Intent intent) {
+//            isLogin = Boolean.parseBoolean(intent.getStringExtra("isLogin"));
+//            Log.d("MyReceiver", intent.getStringExtra("isLogin"));
+//        }
+//    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("MainActivity", "pause");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sp = getSharedPreferences("text",MODE_PRIVATE);
+        isLogin = sp.getBoolean("isLogin",false);
 
     }
 
@@ -100,7 +129,6 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
          * TabLayout绑定ViewPager
          */
         mainTl.setupWithViewPager(mainVp);
-        //mainVp.setOffscreenPageLimit(5);
         mainTl.setTabMode(TabLayout.MODE_FIXED);
         mainTl.getTabAt(0).setText(R.string.tab_news_name).setIcon(R.drawable.selector_news_tab);
         mainTl.getTabAt(1).setText(R.string.tab_equity_name).setIcon(R.drawable.selector_equity_tab);
@@ -115,6 +143,8 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
         depthLl.setOnClickListener(this);
         researchLl.setOnClickListener(this);
         backImg.setOnClickListener(this);
+
+
         /**
          * 设置抽屉锁,使其只在newsFragment显示
          */
@@ -126,8 +156,14 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
                 } else {
                     mainDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                 }
+                if (tab.getPosition() == 3){
+                    if (!isLogin ){
+                        startActivity(new Intent(getApplication(),UnLoginActivity.class));
+                    }
 
-                mainVp.setCurrentItem(mainTl.getSelectedTabPosition());//重新设置ViewPager与TabLayout联动
+                }
+
+                mainVp.setCurrentItem(mainTl.getSelectedTabPosition(), false);//重新设置ViewPager与TabLayout联动
             }
 
             @Override
@@ -140,6 +176,10 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
 
             }
         });
+
+
+
+        mainVp.setOffscreenPageLimit(5);
 
 
     }
@@ -191,6 +231,36 @@ public class MainActivity extends FragmentActivity implements ItoContralActivity
         mainDrawerLayout.closeDrawer(lineatLayout);
 
     }
+
+
+    //退出程序提示
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {//判断按下的是否为返回键，并且是否按下
+        if((keyCode == KeyEvent.KEYCODE_BACK) &&
+                (event.getAction() == KeyEvent.ACTION_DOWN))
+        {
+//如果两次按返回键时间间隔大于2000毫秒就吐司提示，否则finish（）当前Activity
+            if((System.currentTimeMillis() - tempTime) > 2000 )
+            {
+                tempTime = System.currentTimeMillis();
+                Toast.makeText(MainActivity.this, "再点击一次退出应用", Toast.LENGTH_SHORT).show();
+            }else
+            {
+                SharedPreferences sp = getSharedPreferences("text", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                //存储的数据都是 key-value形式
+                editor.putBoolean("isLogin",false);
+                editor.commit();
+                finish();
+                System.exit(0);//0表示正常退出，非0表示不正常
+            }
+
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
 
     /**
      * 接口回调接收NewsFragment传来的值

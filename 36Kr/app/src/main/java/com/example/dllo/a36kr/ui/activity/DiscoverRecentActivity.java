@@ -182,6 +182,8 @@ public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnCl
                 mTypeImg.setColorFilter(Color.BLUE);
                 mTypePopWindow.setOnDismissListener(this);
 
+
+
                 break;
             case R.id.activity_discover_recent_time_relativelayout:
                 showTimePopupWindow();//设置时间弹窗
@@ -189,6 +191,7 @@ public class DiscoverRecentActivity extends AbsBaseActivity implements View.OnCl
                 mTimeImg.setImageResource(R.mipmap.icon_up);
                 mTimeImg.setColorFilter(Color.BLUE);
                 mTimePopWindow.setOnDismissListener(this);
+
 
 
                 break;

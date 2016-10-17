@@ -6,13 +6,33 @@ package com.example.dllo.a36kr.model.bean;
  */
 public class IsLoginBean {
     private boolean data;
+    private String name;
+    private String ImgUrl;
+
+    public IsLoginBean(boolean data, String name, String imgUrl) {
+        this.data = data;
+        this.name = name;
+        ImgUrl = imgUrl;
+    }
+
+
+
+    public IsLoginBean setData(boolean data,String name,String imgUrl) {
+        this.name = name;
+        ImgUrl = imgUrl;
+        this.data = data;
+        return this;
+    }
 
     public boolean isData() {
         return data;
     }
 
-    public IsLoginBean setData(boolean data) {
-        this.data = data;
-        return this;
+    public String getName() {
+        return name;
+    }
+
+    public String getImgUrl() {
+        return ImgUrl;
     }
 }

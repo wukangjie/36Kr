@@ -1,6 +1,7 @@
 package com.example.dllo.a36kr.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,7 +21,9 @@ import com.example.dllo.a36kr.ui.fragment.EquityFragment;
 import com.example.dllo.a36kr.utils.ScreenSizeUtils;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -32,6 +35,7 @@ public class EquityFragmentAdapter extends BaseAdapter {
 
     private List<EquityFragmentBean.DataBean.DataBean1> datas;
     private Context context;
+    Map<Integer,Boolean> isChecked;
 
     public EquityFragmentAdapter(Context context) {
         this.context = context;
@@ -41,6 +45,10 @@ public class EquityFragmentAdapter extends BaseAdapter {
 
     public void setDatas(List<EquityFragmentBean.DataBean.DataBean1> datas) {
         this.datas = datas;
+        isChecked = new HashMap<>();
+        for (int i = 0; i < datas.size(); i++) {
+            isChecked.put(i,false);
+        }
         notifyDataSetChanged();
     }
 
@@ -61,7 +69,7 @@ public class EquityFragmentAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         EquityFragmentHolder holder = null;
         int width = ScreenSizeUtils.getSreenSize(context, ScreenSizeUtils.ScreenState.WIDTH);
         int height = ScreenSizeUtils.getSreenSize(context, ScreenSizeUtils.ScreenState.HEIGHT);
@@ -83,6 +91,27 @@ public class EquityFragmentAdapter extends BaseAdapter {
             holder.raiseTv.setText(bean.getFundStatus().getDesc());
             holder.progressTv.setText("已融资"+(int)(bean.getRate() * 100)+"%");
             holder.progressBar.setProgress((int) (bean.getRate()*100));
+            holder.mFocusTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //获取当前position的状态
+                    if (isChecked.get(position)){
+                        isChecked.put(position,false);
+                        notifyDataSetChanged();
+                    }else {
+                        isChecked.put(position,true);
+                        notifyDataSetChanged();
+                    }
+                }
+            });
+            //根据记住的状态重新设置CheckBox状态
+            if (isChecked.get(position) ){
+                holder.mFocusTv.setText("已关注");
+                holder.mFocusTv.setTextColor(Color.GRAY);
+            }else {
+                holder.mFocusTv.setText("关注");
+                holder.mFocusTv.setTextColor(Color.BLUE);
+            }
 
 
 
@@ -107,8 +136,10 @@ public class EquityFragmentAdapter extends BaseAdapter {
         TextView progressTv;
         Button subscribeBtn;
          ProgressBar progressBar;
+        TextView mFocusTv;
 
         public EquityFragmentHolder(View view){
+            mFocusTv = (TextView) view.findViewById(R.id.equity_item_focus);
             titleImg = (CircleImageView) view.findViewById(R.id.equity_item_title_img);
             titleName = (TextView) view.findViewById(R.id.equity_item_title_name);
             titleAuthor = (TextView) view.findViewById(R.id.equity_item_title_author);

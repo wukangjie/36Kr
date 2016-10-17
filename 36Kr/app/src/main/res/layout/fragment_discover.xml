@@ -261,7 +261,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_margin="@dimen/activity_vertical_margin"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/common_avatar" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -307,7 +307,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_margin="@dimen/activity_vertical_margin"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/common_avatar" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -350,7 +350,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_margin="@dimen/activity_vertical_margin"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@mipmap/common_avatar" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

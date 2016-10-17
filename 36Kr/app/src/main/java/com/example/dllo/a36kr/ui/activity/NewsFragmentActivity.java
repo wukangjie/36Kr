@@ -2,6 +2,7 @@ package com.example.dllo.a36kr.ui.activity;
 
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
@@ -22,8 +23,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dllo.a36kr.R;
+import com.example.dllo.a36kr.model.bean.CollectBean;
 import com.example.dllo.a36kr.model.bean.InvestorDiscoverActivityBean;
 import com.example.dllo.a36kr.model.bean.NewsActivityPopBean;
+import com.example.dllo.a36kr.model.db.LiteOrmInstance;
 import com.example.dllo.a36kr.model.net.VolleyInstance;
 import com.example.dllo.a36kr.model.net.VolleyReault;
 import com.example.dllo.a36kr.ui.adapter.NewsActivityPopAdapter;
@@ -36,6 +39,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 
@@ -43,7 +47,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by dllo on 16/9/13.
  * NewsFragment的详情页
  */
-public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClickListener, PopupWindow.OnDismissListener,View.OnTouchListener,GestureDetector.OnGestureListener {
+public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClickListener, PopupWindow.OnDismissListener, View.OnTouchListener, GestureDetector.OnGestureListener {
 
 
     private String postId;//定义从NewsFragment传来的ID
@@ -68,14 +72,19 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
     private TextView viewTv;
     private ScrollView mScrollView;
     private ImageView backImg;
+    private ImageView mFavoriteImg;
+    private ImageView mShareImg;
+    private String contentImgUrl;
+    private List<CollectBean> datas;
+    private boolean isFavorite;
 
 
-    private static final int FLING_MIN_DISTANCE = 50;
+    private static final int FLING_MIN_DISTANCE = 10;
     private static final int FLING_MIN_VELOCITY = 0;
     GestureDetector mGestureDetector = null;
     private LinearLayout footLinearLayout;
-
-
+    private String type;
+    private boolean isLogin;
 
 
     @Override
@@ -96,6 +105,8 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
         footLinearLayout = byView(R.id.activity_foot_linearlayout);
         mScrollView = byView(R.id.activity_scrollview);
         backImg = byView(R.id.activity_foot_back_img);
+        mFavoriteImg = byView(R.id.activity_foot_favorite_img);
+        mShareImg = byView(R.id.activity_foot_share_img);
 
         newsActivityPopAdapter = new NewsActivityPopAdapter(getApplicationContext());
 
@@ -103,7 +114,15 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences sp = getSharedPreferences("text", MODE_PRIVATE);
+        isLogin = sp.getBoolean("isLogin", false);
+    }
+
+    @Override
     protected void initDatas() {
+
 
         /**
          * 设置不跳转网页,在当前页面显示
@@ -123,6 +142,13 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
         Intent intent = getIntent();//获取传值
         postId = intent.getStringExtra("postId");
         publishTime = intent.getStringExtra("publishTime");
+        type = intent.getStringExtra("typeTv");
+        isFavorite = !LiteOrmInstance.getInstance().queryByPostId(postId).isEmpty();
+        if (isFavorite) {
+            mFavoriteImg.setImageResource(R.mipmap.news_toolbar_icon_favorite_blue);
+        }
+
+
         /**
          * 网络请求
          */
@@ -138,6 +164,7 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
                     JSONObject obj1 = obj.getJSONObject("data");
                     contentS = obj1.getString("content");
                     titleTvS = obj1.getString("title");
+                    contentImgUrl = obj1.getString("featureImg");
                     likeTvS = obj1.getString("summary");
                     JSONObject obj2 = obj1.getJSONObject("user");
                     titleImgS = obj2.getString("avatar");
@@ -169,17 +196,18 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
 
         upDownImg.setOnClickListener(this);
         backImg.setOnClickListener(this);
+        mFavoriteImg.setOnClickListener(this);
+        mShareImg.setOnClickListener(this);
 
         /**
          * 手势监听
          */
-        mGestureDetector = new GestureDetector(getApplicationContext(),this);
+        mGestureDetector = new GestureDetector(getApplicationContext(), this);
         mScrollView.setOnTouchListener(this);
         //下面这几行一定要加上否则就只能识别onDown，onShowPress，和onLongPress
         mScrollView.setFocusable(true);
         mScrollView.setClickable(true);
         mScrollView.setLongClickable(true);
-
 
 
     }
@@ -194,6 +222,57 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
                 break;
             case R.id.activity_foot_back_img:
                 finish();
+                break;
+            case R.id.activity_foot_favorite_img:
+                CollectBean cb = new CollectBean(postId, contentImgUrl, titleTvS, authorTvS, publishTime, type, isFavorite);
+                if (!isLogin) {
+                    startActivity(new Intent(this, UnLoginActivity.class));
+                } else {
+                    if (!isFavorite) {
+                        mFavoriteImg.setImageResource(R.mipmap.news_toolbar_icon_favorite_blue);
+                        if (LiteOrmInstance.getInstance().queryByPostId(postId).isEmpty()) {
+                            LiteOrmInstance.getInstance().insert(cb);
+                        }
+                        Toast.makeText(this, "已收藏", Toast.LENGTH_SHORT).show();
+                        isFavorite = true;
+                    } else {
+                        mFavoriteImg.setImageResource(R.mipmap.news_toolbar_icon_favorite);
+                        LiteOrmInstance.getInstance().deleteByPostId(postId);
+                        isFavorite = false;
+                        Toast.makeText(this, "取消收藏", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                break;
+            case R.id.activity_foot_share_img:
+                if (!isLogin) {
+                    startActivity(new Intent(this, UnLoginActivity.class));
+                } else {
+                    OnekeyShare oks = new OnekeyShare();
+                    //关闭sso授权
+                    oks.disableSSOWhenAuthorize();
+                    // 分享时Notification的图标和文字  2.5.9以后的版本不调用此方法
+                    //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+                    // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+                    oks.setTitle(titleTvS);
+                    // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+                    oks.setTitleUrl("http://sharesdk.cn");
+                    // text是分享文本，所有平台都需要这个字段
+                    oks.setText(contentS);
+                    //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
+                    oks.setImageUrl(contentImgUrl);
+                    // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+                    //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+                    // url仅在微信（包括好友和朋友圈）中使用
+                    oks.setUrl("http://sharesdk.cn");
+                    // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+                    oks.setComment("我是测试评论文本");
+                    // site是分享此内容的网站名称，仅在QQ空间使用
+                    oks.setSite("ShareSDK");
+                    // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+                    oks.setSiteUrl("http://sharesdk.cn");
+                    // 启动分享GUI
+                    oks.show(this);
+                }
                 break;
         }
     }
@@ -215,6 +294,8 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
                 NewsActivityPopBean bean = gson.fromJson(resultStr, NewsActivityPopBean.class);
                 List<NewsActivityPopBean.DataBean.LatestArticleBean> data = bean.getData().getLatestArticle();
                 newsActivityPopAdapter.setDatas(data);
+                viewTv.setText(bean.getData().getTotalView() + "");
+                totleTv.setText(bean.getData().getTotalCount() + "");
 
             }
 
@@ -255,11 +336,9 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
     }
 
 
-
-
-
-
-/****************************手势监听方法***************************/
+    /****************************
+     * 手势监听方法
+     ***************************/
     @Override
     public boolean onDown(MotionEvent e) {
         Log.d("onDown", "onDown");
@@ -279,7 +358,15 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
 
     @Override
     public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-
+        if (e1.getY() - e2.getY() > FLING_MIN_DISTANCE
+                ) {
+            // Fling left
+            footLinearLayout.setVisibility(View.GONE);
+        } else if (e2.getY() - e1.getY() > FLING_MIN_DISTANCE
+                ) {
+            // Fling right
+            footLinearLayout.setVisibility(View.VISIBLE);
+        }
         Log.e("onScroll", "onScroll");
         return false;
     }
@@ -291,17 +378,23 @@ public class NewsFragmentActivity extends AbsBaseActivity implements View.OnClic
 
     @Override
     public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-        if (e1.getY()-e2.getY() > FLING_MIN_DISTANCE
+        if (e1.getY() - e2.getY() > FLING_MIN_DISTANCE
                 && Math.abs(velocityY) > FLING_MIN_VELOCITY) {
             // Fling left
             footLinearLayout.setVisibility(View.GONE);
-        } else if (e2.getY()-e1.getY() > FLING_MIN_DISTANCE
+        } else if (e2.getY() - e1.getY() > FLING_MIN_DISTANCE
                 && Math.abs(velocityY) > FLING_MIN_VELOCITY) {
             // Fling right
             footLinearLayout.setVisibility(View.VISIBLE);
         }
         Log.e("onFling", "onFling");
         return false;
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        mGestureDetector.onTouchEvent(ev);
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override

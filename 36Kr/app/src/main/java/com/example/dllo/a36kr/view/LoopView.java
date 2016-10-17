@@ -180,7 +180,7 @@ public class LoopView extends FrameLayout implements ViewPager.OnPageChangeListe
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            viewPager.setCurrentItem(mCurrentPos);
+             viewPager.setCurrentItem(mCurrentPos);
         }
     };
 

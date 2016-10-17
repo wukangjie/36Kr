@@ -93,6 +93,9 @@ public class EquityUseFragment extends AbsFragment {
                 }, 2000);
             }
         });
+        /**
+         * 上拉加载
+         */
         swipeRefreshLayout.setOnLoadListener(new RefreshLayout.OnLoadListener() {
             @Override
             public void onLoad() {
@@ -109,6 +112,7 @@ public class EquityUseFragment extends AbsFragment {
                                 Gson gson = new Gson();
                                 EquityFragmentBean equityFragmentBean = gson.fromJson(resultStr, EquityFragmentBean.class);
                                 datas1 = equityFragmentBean.getData().getData();
+
                                 datas.addAll(datas1);
                                 adapter.setDatas(datas);
                                 strLoad.replace(page + "", page + 1 + "");

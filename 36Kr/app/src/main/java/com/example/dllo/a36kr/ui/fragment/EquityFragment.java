@@ -1,5 +1,6 @@
 package com.example.dllo.a36kr.ui.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.widget.PopupWindow;
 
 
 import com.example.dllo.a36kr.R;
+import com.example.dllo.a36kr.ui.activity.NewsSearchActivity;
 import com.example.dllo.a36kr.utils.AllContantValues;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class EquityFragment extends AbsFragment implements View.OnClickListener 
     private ImageView mGiftImg;
     private LinearLayout rootView;
     private PopupWindow mPopupWindow;
+    private ImageView mSearchImg;
 
 
     @Override
@@ -50,6 +53,7 @@ public class EquityFragment extends AbsFragment implements View.OnClickListener 
         fragmentEquityViewpager = byView(R.id.fragment_equity_vp);
         mGiftImg = byView(R.id.fragment_equity_title_gift);
         rootView = byView(R.id.root_view);
+        mSearchImg = byView(R.id.fragment_equity_title_search);
 
 
     }
@@ -90,6 +94,7 @@ public class EquityFragment extends AbsFragment implements View.OnClickListener 
 
         fragmentEquityTablayout.setupWithViewPager(fragmentEquityViewpager);
         mGiftImg.setOnClickListener(this);
+        mSearchImg.setOnClickListener(this);
 
     }
 
@@ -98,6 +103,9 @@ public class EquityFragment extends AbsFragment implements View.OnClickListener 
         switch (v.getId()){
             case R.id.fragment_equity_title_gift:
                 createPopWindow();
+                break;
+            case R.id.fragment_equity_title_search:
+                startActivity(new Intent(getContext(), NewsSearchActivity.class));
                 break;
         }
     }

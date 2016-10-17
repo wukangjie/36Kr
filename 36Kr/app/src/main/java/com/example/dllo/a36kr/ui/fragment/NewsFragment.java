@@ -33,7 +33,7 @@ public class NewsFragment extends AbsFragment implements View.OnClickListener {
     }
 
     /**
-     * 单例
+     *
      * @return
      */
     public static NewsFragment newInstance() {

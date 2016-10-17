@@ -13,10 +13,13 @@
         android:id="@+id/news_item_pop_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_marginRight="10dp"
         android:text="真正的大佬上课了对方就爱上了垫付金额为IPO让他今儿是咖啡金额是否看见的是否考虑到是减肥的开始就浪费"
         android:textSize="15sp"
+        android:ellipsize="marquee"
+        android:maxLines="2"
+        android:minLines="2"
         android:textColor="#000"
         />
 

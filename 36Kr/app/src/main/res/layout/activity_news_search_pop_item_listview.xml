@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        >
+
+        <ImageView
+            android:id="@+id/activity_news_search_pop_title_img"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_margin="10dp"
+            android:src="@mipmap/ic_launcher"
+            />
+        <TextView
+            android:id="@+id/activity_news_search_pop_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="今日头条第三期贾子杰的快乐撒发生快乐的发生的房间开啥快递放假爱上"
+            android:textSize="16sp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:textColor="#000"
+            android:layout_toRightOf="@id/activity_news_search_pop_title_img"
+            android:layout_alignTop="@id/activity_news_search_pop_title_img"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:id="@+id/activity_news_search_pop_author_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="徐冰"
+            android:textColor="@color/colorBlack"
+            android:layout_toRightOf="@id/activity_news_search_pop_title_img"
+            android:layout_alignBottom="@id/activity_news_search_pop_title_img"
+            />
+        <TextView
+            android:id="@+id/activity_news_search_pop_time_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="9月30日"
+            android:textColor="@color/colorBlack"
+            android:layout_toRightOf="@id/activity_news_search_pop_author_tv"
+            android:layout_alignBottom="@id/activity_news_search_pop_title_img"
+            android:layout_marginLeft="10dp"
+            />
+        <TextView
+            android:id="@+id/activity_news_search_pop_type_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="公司新闻"
+            android:textColor="@color/colorTabBlue"
+            android:layout_alignBottom="@id/activity_news_search_pop_title_img"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

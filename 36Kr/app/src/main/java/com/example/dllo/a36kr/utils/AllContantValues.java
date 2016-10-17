@@ -18,6 +18,8 @@ public class AllContantValues {
     public static final String DEPTHNEWSURL = "http://rong.36kr.com/api/mobi/news?pageSize=20&columnId=70&pagingAction=up";
     public static final String RESEARCHNEWSURL = "http://rong.36kr.com/api/mobi/news?pageSize=20&columnId=71&pagingAction=up";
     public static final String ACTIVITYNEWSDETAIL= "https://rong.36kr.com/api/mobi/news/";
+    public static final String ACTIVITYNEWSSEARCHLEFT= "https://rong.36kr.com/api/mobi/news/search?keyword=";
+    public static final String ACTIVITYNEWSSEARCHRIGHT= "&page=1&pageSize=3";
     /**
      * 股权投资的网址
      */

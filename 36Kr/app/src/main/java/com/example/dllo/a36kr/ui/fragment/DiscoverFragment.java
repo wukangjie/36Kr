@@ -85,11 +85,13 @@ public class DiscoverFragment extends AbsFragment implements View.OnClickListene
                 myBean = gson.fromJson(resultStr, CarouselBean.class);
                 //获取解析数据的集合
                 List<CarouselBean.DataBean.PicsBean> datas = myBean.getData().getPics();
+                if (entities.isEmpty()) {
 
-                for (int i = 0; i < datas.size(); i++) {
-                    LoopViewEntity e = new LoopViewEntity();
-                    e.setImageUrl(datas.get(i).getImgUrl());
-                    entities.add(e);
+                    for (int i = 0; i < datas.size(); i++) {
+                        LoopViewEntity e = new LoopViewEntity();
+                        e.setImageUrl(datas.get(i).getImgUrl());
+                        entities.add(e);
+                    }
                 }
                 loopView.setLoopData(entities);
             }
